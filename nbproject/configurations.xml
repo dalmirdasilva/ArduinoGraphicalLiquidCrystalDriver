@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df name="graphic" root=".">
+      <df name="doc">
+      </df>
+      <df name="Glcd">
+        <df name="examples">
+          <df name="simple_blink">
+            <in>simple_blink.ino</in>
+          </df>
+          <df name="writing_and_drawing">
+            <in>writing_and_drawing.ino</in>
+          </df>
+          <df name="writing_big_text">
+            <in>writing_big_text.ino</in>
+          </df>
+          <df name="writing_drawing_and_rendering">
+            <in>writing_drawing_and_rendering.ino</in>
+          </df>
+        </df>
+        <in>Glcd.cpp</in>
+        <in>Glcd.h</in>
+      </df>
+      <df name="GlcdStraight">
+        <in>GlcdStraight.cpp</in>
+        <in>GlcdStraight.h</in>
+      </df>
+      <df name="GlcdWire">
+        <in>GlcdWire.cpp</in>
+        <in>GlcdWire.h</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>/usr/share/arduino/hardware/arduino/cores/arduino</pElem>
+            </incDir>
+          </ccTool>
+        </makeTool>
+      </makefileType>
+      <folder path="graphic/Glcd">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/share/arduino/hardware/arduino/cores/arduino</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="graphic/GlcdStraight">
+        <ccTool>
+          <incDir>
+            <pElem>Glcd</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+    </conf>
+  </confs>
+</configurationDescriptor>
