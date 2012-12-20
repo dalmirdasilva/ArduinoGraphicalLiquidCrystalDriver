@@ -248,6 +248,24 @@ public:
         return (x > GLCD_WIDTH || y > GLCD_HEIGHT);
     }
     
+    /**
+     * Gets the glcd width.
+     * 
+     * @return 
+     */
+    unsigned char inline getWidth() {
+       return  GLCD_WIDTH;
+    }
+    
+    /**
+     * Gets the glcd height.
+     * 
+     * @return 
+     */
+    unsigned char inline getHeight() {
+       return  GLCD_HEIGHT;
+    }
+    
 protected:
 
     /**

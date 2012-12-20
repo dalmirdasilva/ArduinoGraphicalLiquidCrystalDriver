@@ -39,13 +39,13 @@
 #define GLCD_BUS_PORT_NIBBLE_HIGH                       PORTB
 
 // Data setup time TDSU ~= 300 ns (at 20Mhz it will be about 15 cycles)
-#define GLCD_DELAY_TDSU_US	                            0x01
+#define GLCD_DELAY_TDSU_US	                            0x0a
 
 // Data hold time (write) TDHW ~= 15 ns (at 20Mhz it will be about 1 cycles)
-#define GLCD_DELAY_TDHW_US	                            0x01
+#define GLCD_DELAY_TDHW_US	                            0x0a
 
 // Data delay time TDDR ~= 480 ns (at 20Mhz it will be about 25 cycles)
-#define GLCD_DELAY_TD_US	                            0x01
+#define GLCD_DELAY_TD_US	                            0x0a
 
 // I don't know exactly how many cycles :/
 #define GLCD_DELAY_RESET_US								0x0a

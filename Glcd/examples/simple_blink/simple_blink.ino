@@ -2,6 +2,7 @@
 #include <GlcdStraight.h>
 
 void setup() {
+  unsigned long start;
   Serial.begin(9600);
 
   Serial.println("Are you sure to continue? (y/n)");
@@ -13,13 +14,12 @@ void setup() {
   glcdDriver.init(Glcd::MODE_ON);
   glcdDriver.screen(0x00);
 
+  start = millis();
   for (int i = 0; i < 256; i++) {
     glcdDriver.screen(i);
-    delay(100);
   }
   
-  Serial.print("Finished at: ");
-  Serial.println(millis());
+  Serial.println(millis() - start);
 }
 
 void loop() {

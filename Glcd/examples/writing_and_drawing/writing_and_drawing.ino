@@ -8,6 +8,8 @@
 #include <ExternalEeprom.h>
 #include <External24cl256Eeprom.h>
 #include <Glcd.h>
+#include <GlcdPoint.h>
+#include <GlcdRectangle.h>
 #include <GlcdStraight.h>
 #include <GlcdGraphicState.h>
 #include <GlcdDrawer.h>
@@ -42,7 +44,7 @@ void setup() {
   glcdDrawer.line(30, 20, 20, 20);
   glcdDrawer.line(20, 20, 10, 10);
 
-  Rectangle rec(30, 30, 100, 60);
+  GlcdRectangle rec(30, 30, 100, 60);
   glcdText.printString(&rec, (unsigned char*)"#{Testing...} @OK!", 100, 1);
   
   eeis.close();
