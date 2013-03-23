@@ -16,7 +16,8 @@
 #include <Wire.h>
 #include <Arduino.h>
 
-GlcdWire::GlcdWire(unsigned char device) : device(device), Glcd() {
+GlcdWire::GlcdWire(unsigned char device) : Glcd() {
+    this->device = device;
 }
 
 void GlcdWire::init(Mode mode) {
@@ -32,6 +33,7 @@ void GlcdWire::reset() {
 
 bool GlcdWire::write(Chip chip, unsigned char b, RegisterSelect rs) {
     unsigned char cmd, page, line;
+    bool success = false;
     cmd = b & 0xc0;
     if (rs == Glcd::RS_COMMAND) {
         if (cmd == (Glcd::CMD_SET_PAGE & 0xc0)) {
@@ -61,8 +63,11 @@ bool GlcdWire::write(Chip chip, unsigned char b, RegisterSelect rs) {
         Wire.write(page);
         Wire.write(line);
         Wire.write(b);
-        Wire.endTransmission();
+        if (Wire.endTransmission() == 0) {
+            success = true;
+        }
     }
+    return success;
 }
 
 unsigned char GlcdWire::read(Chip chip, RegisterSelect rs) {

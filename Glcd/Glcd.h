@@ -265,6 +265,13 @@ public:
     unsigned char inline getHeight() {
        return  GLCD_HEIGHT;
     }
+
+    /**
+     * Clears the display.
+     */
+    void inline clear() {
+        screen(0x00);
+    }
     
 protected:
 

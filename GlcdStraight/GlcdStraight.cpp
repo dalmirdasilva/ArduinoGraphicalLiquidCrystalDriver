@@ -41,14 +41,19 @@ void GlcdStraight::initIo() {
     pinMode(GLCD_RS_PIN, OUTPUT);
     pinMode(GLCD_RW_PIN, OUTPUT);
     pinMode(GLCD_EN_PIN, OUTPUT);
-//    pinMode(GLCD_RESET_PIN, OUTPUT);
+
+#ifdef GLCD_USING_RESET
+    pinMode(GLCD_RESET_PIN, OUTPUT);
+#endif
 }
 
 void GlcdStraight::reset() {
-//    digitalWrite(GLCD_RESET_PIN, LOW);
-//    delayMicroseconds(GLCD_DELAY_RESET_US);
-//    digitalWrite(GLCD_RESET_PIN, HIGH);
-//    while (isReseting(Glcd::CHIP_1));
+#ifdef GLCD_USING_RESET
+    digitalWrite(GLCD_RESET_PIN, LOW);
+    delayMicroseconds(GLCD_DELAY_RESET_US);
+    digitalWrite(GLCD_RESET_PIN, HIGH);
+    while (isReseting(Glcd::CHIP_1));
+#endif
 }
 
 void GlcdStraight::switchRegisterSelectTo(RegisterSelect rs) {

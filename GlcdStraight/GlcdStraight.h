@@ -6,6 +6,28 @@
  * The header file for glcd driver, wicth implements the driver base
  * with direct access, witout buffer.
  * 
+ * 01 - GND
+ * 02 - VDD
+ * 03 - V0
+ * 04 - D/I
+ * 05 - R/W
+ * 06 - E
+ * 07 - D0
+ * 08 - D1
+ * 09 - D2
+ * 10 - D3
+ * 11 - D4
+ * 12 - D5
+ * 13 - D6
+ * 14 - D7
+ * 15 - CS1
+ * 16 - CS2
+ * 17 - RST
+ * 18 - VEE
+ * 19 - LED 5v
+ * 20 - LED 0v
+ *
+ *
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
@@ -14,13 +36,16 @@
 
 #include <Glcd.h>
 
-#define GLCD_CS1_PIN                                    2
-#define GLCD_CS2_PIN                                    3
+#define GLCD_CS1_PIN                                    12
+#define GLCD_CS2_PIN                                    13
 
-#define GLCD_RS_PIN                                     A2
-#define GLCD_RW_PIN                                     A3
-#define GLCD_EN_PIN                                     A4
-//#define GLCD_RESET_PIN                                  13
+#define GLCD_RS_PIN                                     3
+#define GLCD_RW_PIN                                     2
+#define GLCD_EN_PIN                                     A0
+
+#ifdef GLCD_USING_RESET
+#define GLCD_RESET_PIN                                  13
+#endif
 
 /*
  * Arduino layout
@@ -50,7 +75,7 @@
 // I don't know exactly how many cycles :/
 #define GLCD_DELAY_RESET_US								0x0a
 
-#define GLCD_CHECK_FOR_BUSY_ON_WRITE                    0x01
+#define GLCD_CHECK_FOR_BUSY_ON_WRITE                    0x00
 #define GLCD_DEFAULT_ATTEMPTS_ON_BUSY                   0x0a
 
 
