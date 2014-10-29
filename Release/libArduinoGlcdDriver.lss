@@ -4,540 +4,610 @@ GlcdWire.o:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000001a8  00000000  00000000  00000034  2**0
-                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
-  1 .data         0000000e  00000000  00000000  000001dc  2**0
-                  CONTENTS, ALLOC, LOAD, RELOC, DATA
-  2 .bss          00000000  00000000  00000000  000001ea  2**0
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
                   ALLOC
-Disassembly of section .text:
+  3 .text._ZN8GlcdWire5resetEv 00000002  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  4 .text._ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE 000000bc  00000000  00000000  00000036  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  5 .text._ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE 00000088  00000000  00000000  000000f2  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  6 .text._ZN8GlcdWire4initEN4Glcd4ModeE 0000001e  00000000  00000000  0000017a  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  7 .text._ZN8GlcdWireC1Eh 00000022  00000000  00000000  00000198  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  8 .text._ZN8GlcdWireC2Eh 00000022  00000000  00000000  000001ba  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  9 .rodata._ZTV8GlcdWire 0000000e  00000000  00000000  000001dc  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
+Disassembly of section .text._ZN8GlcdWire5resetEv:
 
 00000000 <_ZN8GlcdWire5resetEv>:
    0:	08 95       	ret
+Disassembly of section .text._ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE:
 
-00000002 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>:
-   2:	ff 92       	push	r15
-   4:	0f 93       	push	r16
-   6:	1f 93       	push	r17
-   8:	fc 01       	movw	r30, r24
-   a:	04 2f       	mov	r16, r20
-   c:	22 23       	and	r18, r18
-   e:	01 f4       	brne	.+0      	; 0x10 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0xe>
-  10:	84 2f       	mov	r24, r20
-  12:	80 7c       	andi	r24, 0xC0	; 192
-  14:	80 38       	cpi	r24, 0x80	; 128
-  16:	01 f4       	brne	.+0      	; 0x18 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x16>
-  18:	86 2f       	mov	r24, r22
-  1a:	81 50       	subi	r24, 0x01	; 1
-  1c:	8e 3f       	cpi	r24, 0xFE	; 254
-  1e:	00 f0       	brcs	.+0      	; 0x20 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x1e>
-  20:	84 2f       	mov	r24, r20
-  22:	87 70       	andi	r24, 0x07	; 7
-  24:	86 83       	std	Z+6, r24	; 0x06
-  26:	61 30       	cpi	r22, 0x01	; 1
-  28:	01 f0       	breq	.+0      	; 0x2a <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x28>
-  2a:	6f 3f       	cpi	r22, 0xFF	; 255
-  2c:	01 f0       	breq	.+0      	; 0x2e <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x2c>
-  2e:	00 c0       	rjmp	.+0      	; 0x30 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x2e>
-  30:	07 70       	andi	r16, 0x07	; 7
-  32:	00 87       	std	Z+8, r16	; 0x08
-  34:	00 c0       	rjmp	.+0      	; 0x36 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x34>
-  36:	80 34       	cpi	r24, 0x40	; 64
-  38:	01 f4       	brne	.+0      	; 0x3a <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x38>
-  3a:	86 2f       	mov	r24, r22
-  3c:	81 50       	subi	r24, 0x01	; 1
-  3e:	8e 3f       	cpi	r24, 0xFE	; 254
-  40:	00 f0       	brcs	.+0      	; 0x42 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x40>
-  42:	84 2f       	mov	r24, r20
-  44:	8f 73       	andi	r24, 0x3F	; 63
-  46:	87 83       	std	Z+7, r24	; 0x07
-  48:	61 30       	cpi	r22, 0x01	; 1
-  4a:	01 f0       	breq	.+0      	; 0x4c <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x4a>
-  4c:	6f 3f       	cpi	r22, 0xFF	; 255
-  4e:	01 f4       	brne	.+0      	; 0x50 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x4e>
-  50:	0f 73       	andi	r16, 0x3F	; 63
-  52:	01 87       	std	Z+9, r16	; 0x09
-  54:	00 c0       	rjmp	.+0      	; 0x56 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x54>
-  56:	86 2f       	mov	r24, r22
-  58:	83 70       	andi	r24, 0x03	; 3
-  5a:	61 50       	subi	r22, 0x01	; 1
-  5c:	6e 3f       	cpi	r22, 0xFE	; 254
-  5e:	00 f0       	brcs	.+0      	; 0x60 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x5e>
-  60:	16 81       	ldd	r17, Z+6	; 0x06
+00000000 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>:
+   0:	ff 92       	push	r15
+   2:	0f 93       	push	r16
+   4:	1f 93       	push	r17
+   6:	fc 01       	movw	r30, r24
+   8:	04 2f       	mov	r16, r20
+   a:	22 23       	and	r18, r18
+   c:	01 f4       	brne	.+0      	; 0xe <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0xe>
+   e:	84 2f       	mov	r24, r20
+  10:	80 7c       	andi	r24, 0xC0	; 192
+  12:	80 38       	cpi	r24, 0x80	; 128
+  14:	01 f4       	brne	.+0      	; 0x16 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x16>
+  16:	86 2f       	mov	r24, r22
+  18:	81 50       	subi	r24, 0x01	; 1
+  1a:	8e 3f       	cpi	r24, 0xFE	; 254
+  1c:	00 f0       	brcs	.+0      	; 0x1e <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x1e>
+  1e:	84 2f       	mov	r24, r20
+  20:	87 70       	andi	r24, 0x07	; 7
+  22:	86 83       	std	Z+6, r24	; 0x06
+  24:	61 30       	cpi	r22, 0x01	; 1
+  26:	01 f0       	breq	.+0      	; 0x28 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x28>
+  28:	6f 3f       	cpi	r22, 0xFF	; 255
+  2a:	01 f0       	breq	.+0      	; 0x2c <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x2c>
+  2c:	00 c0       	rjmp	.+0      	; 0x2e <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x2e>
+  2e:	07 70       	andi	r16, 0x07	; 7
+  30:	00 87       	std	Z+8, r16	; 0x08
+  32:	00 c0       	rjmp	.+0      	; 0x34 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x34>
+  34:	80 34       	cpi	r24, 0x40	; 64
+  36:	01 f4       	brne	.+0      	; 0x38 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x38>
+  38:	86 2f       	mov	r24, r22
+  3a:	81 50       	subi	r24, 0x01	; 1
+  3c:	8e 3f       	cpi	r24, 0xFE	; 254
+  3e:	00 f0       	brcs	.+0      	; 0x40 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x40>
+  40:	84 2f       	mov	r24, r20
+  42:	8f 73       	andi	r24, 0x3F	; 63
+  44:	87 83       	std	Z+7, r24	; 0x07
+  46:	61 30       	cpi	r22, 0x01	; 1
+  48:	01 f0       	breq	.+0      	; 0x4a <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x4a>
+  4a:	6f 3f       	cpi	r22, 0xFF	; 255
+  4c:	01 f4       	brne	.+0      	; 0x4e <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x4e>
+  4e:	0f 73       	andi	r16, 0x3F	; 63
+  50:	01 87       	std	Z+9, r16	; 0x09
+  52:	00 c0       	rjmp	.+0      	; 0x54 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x54>
+  54:	86 2f       	mov	r24, r22
+  56:	83 70       	andi	r24, 0x03	; 3
+  58:	61 50       	subi	r22, 0x01	; 1
+  5a:	6e 3f       	cpi	r22, 0xFE	; 254
+  5c:	00 f0       	brcs	.+0      	; 0x5e <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x5e>
+  5e:	16 81       	ldd	r17, Z+6	; 0x06
+  60:	11 0f       	add	r17, r17
   62:	11 0f       	add	r17, r17
-  64:	11 0f       	add	r17, r17
-  66:	18 2b       	or	r17, r24
-  68:	f7 80       	ldd	r15, Z+7	; 0x07
-  6a:	00 c0       	rjmp	.+0      	; 0x6c <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x6a>
-  6c:	10 85       	ldd	r17, Z+8	; 0x08
+  64:	18 2b       	or	r17, r24
+  66:	f7 80       	ldd	r15, Z+7	; 0x07
+  68:	00 c0       	rjmp	.+0      	; 0x6a <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0x6a>
+  6a:	10 85       	ldd	r17, Z+8	; 0x08
+  6c:	11 0f       	add	r17, r17
   6e:	11 0f       	add	r17, r17
-  70:	11 0f       	add	r17, r17
-  72:	18 2b       	or	r17, r24
-  74:	f1 84       	ldd	r15, Z+9	; 0x09
-  76:	65 81       	ldd	r22, Z+5	; 0x05
-  78:	80 e0       	ldi	r24, 0x00	; 0
-  7a:	90 e0       	ldi	r25, 0x00	; 0
-  7c:	70 e0       	ldi	r23, 0x00	; 0
-  7e:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
-  82:	80 e0       	ldi	r24, 0x00	; 0
-  84:	90 e0       	ldi	r25, 0x00	; 0
-  86:	61 2f       	mov	r22, r17
-  88:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
-  8c:	80 e0       	ldi	r24, 0x00	; 0
-  8e:	90 e0       	ldi	r25, 0x00	; 0
-  90:	6f 2d       	mov	r22, r15
-  92:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
-  96:	80 e0       	ldi	r24, 0x00	; 0
-  98:	90 e0       	ldi	r25, 0x00	; 0
-  9a:	60 2f       	mov	r22, r16
-  9c:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
-  a0:	80 e0       	ldi	r24, 0x00	; 0
-  a2:	90 e0       	ldi	r25, 0x00	; 0
-  a4:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
-  a8:	90 e0       	ldi	r25, 0x00	; 0
-  aa:	88 23       	and	r24, r24
-  ac:	01 f4       	brne	.+0      	; 0xae <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0xac>
-  ae:	91 e0       	ldi	r25, 0x01	; 1
-  b0:	00 c0       	rjmp	.+0      	; 0xb2 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0xb0>
-  b2:	90 e0       	ldi	r25, 0x00	; 0
-  b4:	89 2f       	mov	r24, r25
-  b6:	1f 91       	pop	r17
-  b8:	0f 91       	pop	r16
-  ba:	ff 90       	pop	r15
-  bc:	08 95       	ret
+  70:	18 2b       	or	r17, r24
+  72:	f1 84       	ldd	r15, Z+9	; 0x09
+  74:	65 81       	ldd	r22, Z+5	; 0x05
+  76:	80 e0       	ldi	r24, 0x00	; 0
+  78:	90 e0       	ldi	r25, 0x00	; 0
+  7a:	70 e0       	ldi	r23, 0x00	; 0
+  7c:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  80:	80 e0       	ldi	r24, 0x00	; 0
+  82:	90 e0       	ldi	r25, 0x00	; 0
+  84:	61 2f       	mov	r22, r17
+  86:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  8a:	80 e0       	ldi	r24, 0x00	; 0
+  8c:	90 e0       	ldi	r25, 0x00	; 0
+  8e:	6f 2d       	mov	r22, r15
+  90:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  94:	80 e0       	ldi	r24, 0x00	; 0
+  96:	90 e0       	ldi	r25, 0x00	; 0
+  98:	60 2f       	mov	r22, r16
+  9a:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  9e:	80 e0       	ldi	r24, 0x00	; 0
+  a0:	90 e0       	ldi	r25, 0x00	; 0
+  a2:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  a6:	90 e0       	ldi	r25, 0x00	; 0
+  a8:	88 23       	and	r24, r24
+  aa:	01 f4       	brne	.+0      	; 0xac <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0xac>
+  ac:	91 e0       	ldi	r25, 0x01	; 1
+  ae:	00 c0       	rjmp	.+0      	; 0xb0 <_ZN8GlcdWire5writeEN4Glcd4ChipEhNS0_14RegisterSelectE+0xb0>
+  b0:	90 e0       	ldi	r25, 0x00	; 0
+  b2:	89 2f       	mov	r24, r25
+  b4:	1f 91       	pop	r17
+  b6:	0f 91       	pop	r16
+  b8:	ff 90       	pop	r15
+  ba:	08 95       	ret
+Disassembly of section .text._ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE:
 
-000000be <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>:
-  be:	0f 93       	push	r16
-  c0:	1f 93       	push	r17
-  c2:	cf 93       	push	r28
-  c4:	df 93       	push	r29
-  c6:	ec 01       	movw	r28, r24
-  c8:	44 23       	and	r20, r20
-  ca:	01 f4       	brne	.+0      	; 0xcc <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0xe>
-  cc:	80 e2       	ldi	r24, 0x20	; 32
-  ce:	00 c0       	rjmp	.+0      	; 0xd0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x12>
-  d0:	86 2f       	mov	r24, r22
-  d2:	83 70       	andi	r24, 0x03	; 3
-  d4:	61 50       	subi	r22, 0x01	; 1
-  d6:	6e 3f       	cpi	r22, 0xFE	; 254
-  d8:	00 f0       	brcs	.+0      	; 0xda <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x1c>
-  da:	1e 81       	ldd	r17, Y+6	; 0x06
-  dc:	11 0f       	add	r17, r17
-  de:	11 0f       	add	r17, r17
-  e0:	18 2b       	or	r17, r24
-  e2:	0f 81       	ldd	r16, Y+7	; 0x07
-  e4:	00 c0       	rjmp	.+0      	; 0xe6 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x28>
-  e6:	18 85       	ldd	r17, Y+8	; 0x08
-  e8:	11 0f       	add	r17, r17
-  ea:	11 0f       	add	r17, r17
-  ec:	18 2b       	or	r17, r24
-  ee:	09 85       	ldd	r16, Y+9	; 0x09
-  f0:	6d 81       	ldd	r22, Y+5	; 0x05
-  f2:	80 e0       	ldi	r24, 0x00	; 0
-  f4:	90 e0       	ldi	r25, 0x00	; 0
-  f6:	70 e0       	ldi	r23, 0x00	; 0
-  f8:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
-  fc:	80 e0       	ldi	r24, 0x00	; 0
-  fe:	90 e0       	ldi	r25, 0x00	; 0
- 100:	61 2f       	mov	r22, r17
- 102:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 106:	80 e0       	ldi	r24, 0x00	; 0
- 108:	90 e0       	ldi	r25, 0x00	; 0
- 10a:	60 2f       	mov	r22, r16
- 10c:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 110:	80 e0       	ldi	r24, 0x00	; 0
- 112:	90 e0       	ldi	r25, 0x00	; 0
- 114:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 118:	6d 81       	ldd	r22, Y+5	; 0x05
- 11a:	80 e0       	ldi	r24, 0x00	; 0
- 11c:	90 e0       	ldi	r25, 0x00	; 0
- 11e:	70 e0       	ldi	r23, 0x00	; 0
- 120:	41 e0       	ldi	r20, 0x01	; 1
- 122:	50 e0       	ldi	r21, 0x00	; 0
- 124:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 128:	80 e0       	ldi	r24, 0x00	; 0
- 12a:	90 e0       	ldi	r25, 0x00	; 0
- 12c:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 130:	89 2b       	or	r24, r25
- 132:	01 f0       	breq	.+0      	; 0x134 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x76>
- 134:	80 e0       	ldi	r24, 0x00	; 0
- 136:	90 e0       	ldi	r25, 0x00	; 0
- 138:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 13c:	df 91       	pop	r29
- 13e:	cf 91       	pop	r28
- 140:	1f 91       	pop	r17
- 142:	0f 91       	pop	r16
- 144:	08 95       	ret
+00000000 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>:
+   0:	0f 93       	push	r16
+   2:	1f 93       	push	r17
+   4:	cf 93       	push	r28
+   6:	df 93       	push	r29
+   8:	ec 01       	movw	r28, r24
+   a:	44 23       	and	r20, r20
+   c:	01 f4       	brne	.+0      	; 0xe <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0xe>
+   e:	80 e2       	ldi	r24, 0x20	; 32
+  10:	00 c0       	rjmp	.+0      	; 0x12 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x12>
+  12:	86 2f       	mov	r24, r22
+  14:	83 70       	andi	r24, 0x03	; 3
+  16:	61 50       	subi	r22, 0x01	; 1
+  18:	6e 3f       	cpi	r22, 0xFE	; 254
+  1a:	00 f0       	brcs	.+0      	; 0x1c <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x1c>
+  1c:	1e 81       	ldd	r17, Y+6	; 0x06
+  1e:	11 0f       	add	r17, r17
+  20:	11 0f       	add	r17, r17
+  22:	18 2b       	or	r17, r24
+  24:	0f 81       	ldd	r16, Y+7	; 0x07
+  26:	00 c0       	rjmp	.+0      	; 0x28 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x28>
+  28:	18 85       	ldd	r17, Y+8	; 0x08
+  2a:	11 0f       	add	r17, r17
+  2c:	11 0f       	add	r17, r17
+  2e:	18 2b       	or	r17, r24
+  30:	09 85       	ldd	r16, Y+9	; 0x09
+  32:	6d 81       	ldd	r22, Y+5	; 0x05
+  34:	80 e0       	ldi	r24, 0x00	; 0
+  36:	90 e0       	ldi	r25, 0x00	; 0
+  38:	70 e0       	ldi	r23, 0x00	; 0
+  3a:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  3e:	80 e0       	ldi	r24, 0x00	; 0
+  40:	90 e0       	ldi	r25, 0x00	; 0
+  42:	61 2f       	mov	r22, r17
+  44:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  48:	80 e0       	ldi	r24, 0x00	; 0
+  4a:	90 e0       	ldi	r25, 0x00	; 0
+  4c:	60 2f       	mov	r22, r16
+  4e:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  52:	80 e0       	ldi	r24, 0x00	; 0
+  54:	90 e0       	ldi	r25, 0x00	; 0
+  56:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  5a:	6d 81       	ldd	r22, Y+5	; 0x05
+  5c:	80 e0       	ldi	r24, 0x00	; 0
+  5e:	90 e0       	ldi	r25, 0x00	; 0
+  60:	70 e0       	ldi	r23, 0x00	; 0
+  62:	41 e0       	ldi	r20, 0x01	; 1
+  64:	50 e0       	ldi	r21, 0x00	; 0
+  66:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  6a:	80 e0       	ldi	r24, 0x00	; 0
+  6c:	90 e0       	ldi	r25, 0x00	; 0
+  6e:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  72:	89 2b       	or	r24, r25
+  74:	01 f0       	breq	.+0      	; 0x76 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE+0x76>
+  76:	80 e0       	ldi	r24, 0x00	; 0
+  78:	90 e0       	ldi	r25, 0x00	; 0
+  7a:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  7e:	df 91       	pop	r29
+  80:	cf 91       	pop	r28
+  82:	1f 91       	pop	r17
+  84:	0f 91       	pop	r16
+  86:	08 95       	ret
+Disassembly of section .text._ZN8GlcdWire4initEN4Glcd4ModeE:
 
-00000146 <_ZN8GlcdWire4initEN4Glcd4ModeE>:
- 146:	0f 93       	push	r16
- 148:	1f 93       	push	r17
- 14a:	8c 01       	movw	r16, r24
- 14c:	80 e0       	ldi	r24, 0x00	; 0
- 14e:	90 e0       	ldi	r25, 0x00	; 0
- 150:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 154:	f8 01       	movw	r30, r16
- 156:	16 82       	std	Z+6, r1	; 0x06
- 158:	17 82       	std	Z+7, r1	; 0x07
- 15a:	10 86       	std	Z+8, r1	; 0x08
- 15c:	11 86       	std	Z+9, r1	; 0x09
- 15e:	1f 91       	pop	r17
- 160:	0f 91       	pop	r16
- 162:	08 95       	ret
+00000000 <_ZN8GlcdWire4initEN4Glcd4ModeE>:
+   0:	0f 93       	push	r16
+   2:	1f 93       	push	r17
+   4:	8c 01       	movw	r16, r24
+   6:	80 e0       	ldi	r24, 0x00	; 0
+   8:	90 e0       	ldi	r25, 0x00	; 0
+   a:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire4initEN4Glcd4ModeE>
+   e:	f8 01       	movw	r30, r16
+  10:	16 82       	std	Z+6, r1	; 0x06
+  12:	17 82       	std	Z+7, r1	; 0x07
+  14:	10 86       	std	Z+8, r1	; 0x08
+  16:	11 86       	std	Z+9, r1	; 0x09
+  18:	1f 91       	pop	r17
+  1a:	0f 91       	pop	r16
+  1c:	08 95       	ret
+Disassembly of section .text._ZN8GlcdWireC1Eh:
 
-00000164 <_ZN8GlcdWireC1Eh>:
- 164:	ff 92       	push	r15
- 166:	0f 93       	push	r16
- 168:	1f 93       	push	r17
- 16a:	8c 01       	movw	r16, r24
- 16c:	f6 2e       	mov	r15, r22
- 16e:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 172:	80 e0       	ldi	r24, 0x00	; 0
- 174:	90 e0       	ldi	r25, 0x00	; 0
- 176:	f8 01       	movw	r30, r16
- 178:	91 83       	std	Z+1, r25	; 0x01
- 17a:	80 83       	st	Z, r24
- 17c:	f5 82       	std	Z+5, r15	; 0x05
- 17e:	1f 91       	pop	r17
- 180:	0f 91       	pop	r16
- 182:	ff 90       	pop	r15
- 184:	08 95       	ret
+00000000 <_ZN8GlcdWireC1Eh>:
+   0:	ff 92       	push	r15
+   2:	0f 93       	push	r16
+   4:	1f 93       	push	r17
+   6:	8c 01       	movw	r16, r24
+   8:	f6 2e       	mov	r15, r22
+   a:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWireC1Eh>
+   e:	80 e0       	ldi	r24, 0x00	; 0
+  10:	90 e0       	ldi	r25, 0x00	; 0
+  12:	f8 01       	movw	r30, r16
+  14:	91 83       	std	Z+1, r25	; 0x01
+  16:	80 83       	st	Z, r24
+  18:	f5 82       	std	Z+5, r15	; 0x05
+  1a:	1f 91       	pop	r17
+  1c:	0f 91       	pop	r16
+  1e:	ff 90       	pop	r15
+  20:	08 95       	ret
+Disassembly of section .text._ZN8GlcdWireC2Eh:
 
-00000186 <_ZN8GlcdWireC2Eh>:
- 186:	ff 92       	push	r15
- 188:	0f 93       	push	r16
- 18a:	1f 93       	push	r17
- 18c:	8c 01       	movw	r16, r24
- 18e:	f6 2e       	mov	r15, r22
- 190:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWire5resetEv>
- 194:	80 e0       	ldi	r24, 0x00	; 0
- 196:	90 e0       	ldi	r25, 0x00	; 0
- 198:	f8 01       	movw	r30, r16
- 19a:	91 83       	std	Z+1, r25	; 0x01
- 19c:	80 83       	st	Z, r24
- 19e:	f5 82       	std	Z+5, r15	; 0x05
- 1a0:	1f 91       	pop	r17
- 1a2:	0f 91       	pop	r16
- 1a4:	ff 90       	pop	r15
- 1a6:	08 95       	ret
+00000000 <_ZN8GlcdWireC2Eh>:
+   0:	ff 92       	push	r15
+   2:	0f 93       	push	r16
+   4:	1f 93       	push	r17
+   6:	8c 01       	movw	r16, r24
+   8:	f6 2e       	mov	r15, r22
+   a:	0e 94 00 00 	call	0	; 0x0 <_ZN8GlcdWireC2Eh>
+   e:	80 e0       	ldi	r24, 0x00	; 0
+  10:	90 e0       	ldi	r25, 0x00	; 0
+  12:	f8 01       	movw	r30, r16
+  14:	91 83       	std	Z+1, r25	; 0x01
+  16:	80 83       	st	Z, r24
+  18:	f5 82       	std	Z+5, r15	; 0x05
+  1a:	1f 91       	pop	r17
+  1c:	0f 91       	pop	r16
+  1e:	ff 90       	pop	r15
+  20:	08 95       	ret
 
 GlcdStraight.o:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000260  00000000  00000000  00000034  2**0
-                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
-  1 .data         0000000e  00000000  00000000  00000294  2**0
-                  CONTENTS, ALLOC, LOAD, RELOC, DATA
-  2 .bss          00000000  00000000  00000000  000002a2  2**0
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
                   ALLOC
-Disassembly of section .text:
+  3 .text._ZN12GlcdStraight5resetEv 00000002  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  4 .text._ZN12GlcdStraight4initEN4Glcd4ModeE 000000a2  00000000  00000000  00000036  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  5 .text._ZN12GlcdStraight12disableChipsEv 00000012  00000000  00000000  000000d8  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  6 .text._ZN12GlcdStraight12switchChipToEN4Glcd4ChipE 0000002e  00000000  00000000  000000ea  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  7 .text._ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE 00000012  00000000  00000000  00000118  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  8 .text._ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE 00000092  00000000  00000000  0000012a  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  9 .text._ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE 0000007a  00000000  00000000  000001bc  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 10 .text._ZN12GlcdStraight6initIoEv 0000002a  00000000  00000000  00000236  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 11 .text._ZN12GlcdStraightC1Ev 0000001a  00000000  00000000  00000260  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 12 .text._ZN12GlcdStraightC2Ev 0000001a  00000000  00000000  0000027a  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 13 .rodata._ZTV12GlcdStraight 0000000e  00000000  00000000  00000294  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
+Disassembly of section .text._ZN12GlcdStraight5resetEv:
 
 00000000 <_ZN12GlcdStraight5resetEv>:
    0:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight4initEN4Glcd4ModeE:
 
-00000002 <_ZN12GlcdStraight4initEN4Glcd4ModeE>:
-   2:	1f 93       	push	r17
-   4:	cf 93       	push	r28
-   6:	df 93       	push	r29
-   8:	ec 01       	movw	r28, r24
-   a:	16 2f       	mov	r17, r22
-   c:	e8 81       	ld	r30, Y
-   e:	f9 81       	ldd	r31, Y+1	; 0x01
-  10:	04 80       	ldd	r0, Z+4	; 0x04
-  12:	f5 81       	ldd	r31, Z+5	; 0x05
-  14:	e0 2d       	mov	r30, r0
-  16:	09 95       	icall
-  18:	e8 81       	ld	r30, Y
-  1a:	f9 81       	ldd	r31, Y+1	; 0x01
-  1c:	02 80       	ldd	r0, Z+2	; 0x02
-  1e:	f3 81       	ldd	r31, Z+3	; 0x03
-  20:	e0 2d       	mov	r30, r0
-  22:	ce 01       	movw	r24, r28
-  24:	09 95       	icall
+00000000 <_ZN12GlcdStraight4initEN4Glcd4ModeE>:
+   0:	1f 93       	push	r17
+   2:	cf 93       	push	r28
+   4:	df 93       	push	r29
+   6:	ec 01       	movw	r28, r24
+   8:	16 2f       	mov	r17, r22
+   a:	e8 81       	ld	r30, Y
+   c:	f9 81       	ldd	r31, Y+1	; 0x01
+   e:	04 80       	ldd	r0, Z+4	; 0x04
+  10:	f5 81       	ldd	r31, Z+5	; 0x05
+  12:	e0 2d       	mov	r30, r0
+  14:	09 95       	icall
+  16:	e8 81       	ld	r30, Y
+  18:	f9 81       	ldd	r31, Y+1	; 0x01
+  1a:	02 80       	ldd	r0, Z+2	; 0x02
+  1c:	f3 81       	ldd	r31, Z+3	; 0x03
+  1e:	e0 2d       	mov	r30, r0
+  20:	ce 01       	movw	r24, r28
+  22:	09 95       	icall
+  24:	8e e0       	ldi	r24, 0x0E	; 14
+  26:	60 e0       	ldi	r22, 0x00	; 0
+  28:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4initEN4Glcd4ModeE>
+  2c:	8b 81       	ldd	r24, Y+3	; 0x03
+  2e:	80 7c       	andi	r24, 0xC0	; 192
+  30:	8b 83       	std	Y+3, r24	; 0x03
+  32:	8c 81       	ldd	r24, Y+4	; 0x04
+  34:	80 7c       	andi	r24, 0xC0	; 192
+  36:	8c 83       	std	Y+4, r24	; 0x04
+  38:	e8 81       	ld	r30, Y
+  3a:	f9 81       	ldd	r31, Y+1	; 0x01
+  3c:	06 80       	ldd	r0, Z+6	; 0x06
+  3e:	f7 81       	ldd	r31, Z+7	; 0x07
+  40:	e0 2d       	mov	r30, r0
+  42:	ce 01       	movw	r24, r28
+  44:	6f ef       	ldi	r22, 0xFF	; 255
+  46:	40 ec       	ldi	r20, 0xC0	; 192
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	09 95       	icall
+  4c:	e8 81       	ld	r30, Y
+  4e:	f9 81       	ldd	r31, Y+1	; 0x01
+  50:	06 80       	ldd	r0, Z+6	; 0x06
+  52:	f7 81       	ldd	r31, Z+7	; 0x07
+  54:	e0 2d       	mov	r30, r0
+  56:	ce 01       	movw	r24, r28
+  58:	6f ef       	ldi	r22, 0xFF	; 255
+  5a:	40 e4       	ldi	r20, 0x40	; 64
+  5c:	20 e0       	ldi	r18, 0x00	; 0
+  5e:	09 95       	icall
+  60:	e8 81       	ld	r30, Y
+  62:	f9 81       	ldd	r31, Y+1	; 0x01
+  64:	06 80       	ldd	r0, Z+6	; 0x06
+  66:	f7 81       	ldd	r31, Z+7	; 0x07
+  68:	e0 2d       	mov	r30, r0
+  6a:	ce 01       	movw	r24, r28
+  6c:	6f ef       	ldi	r22, 0xFF	; 255
+  6e:	48 eb       	ldi	r20, 0xB8	; 184
+  70:	20 e0       	ldi	r18, 0x00	; 0
+  72:	09 95       	icall
+  74:	e8 81       	ld	r30, Y
+  76:	f9 81       	ldd	r31, Y+1	; 0x01
+  78:	11 30       	cpi	r17, 0x01	; 1
+  7a:	01 f4       	brne	.+0      	; 0x7c <_ZN12GlcdStraight4initEN4Glcd4ModeE+0x7c>
+  7c:	06 80       	ldd	r0, Z+6	; 0x06
+  7e:	f7 81       	ldd	r31, Z+7	; 0x07
+  80:	e0 2d       	mov	r30, r0
+  82:	ce 01       	movw	r24, r28
+  84:	6f ef       	ldi	r22, 0xFF	; 255
+  86:	4f e3       	ldi	r20, 0x3F	; 63
+  88:	00 c0       	rjmp	.+0      	; 0x8a <_ZN12GlcdStraight4initEN4Glcd4ModeE+0x8a>
+  8a:	06 80       	ldd	r0, Z+6	; 0x06
+  8c:	f7 81       	ldd	r31, Z+7	; 0x07
+  8e:	e0 2d       	mov	r30, r0
+  90:	ce 01       	movw	r24, r28
+  92:	6f ef       	ldi	r22, 0xFF	; 255
+  94:	4e e3       	ldi	r20, 0x3E	; 62
+  96:	20 e0       	ldi	r18, 0x00	; 0
+  98:	09 95       	icall
+  9a:	df 91       	pop	r29
+  9c:	cf 91       	pop	r28
+  9e:	1f 91       	pop	r17
+  a0:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight12disableChipsEv:
+
+00000000 <_ZN12GlcdStraight12disableChipsEv>:
+   0:	8c e0       	ldi	r24, 0x0C	; 12
+   2:	60 e0       	ldi	r22, 0x00	; 0
+   4:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight12disableChipsEv>
+   8:	8d e0       	ldi	r24, 0x0D	; 13
+   a:	60 e0       	ldi	r22, 0x00	; 0
+   c:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight12disableChipsEv>
+  10:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight12switchChipToEN4Glcd4ChipE:
+
+00000000 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE>:
+   0:	6f 3f       	cpi	r22, 0xFF	; 255
+   2:	01 f4       	brne	.+0      	; 0x4 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0x4>
+   4:	8c e0       	ldi	r24, 0x0C	; 12
+   6:	61 e0       	ldi	r22, 0x01	; 1
+   8:	00 c0       	rjmp	.+0      	; 0xa <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0xa>
+   a:	66 23       	and	r22, r22
+   c:	01 f4       	brne	.+0      	; 0xe <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0xe>
+   e:	8c e0       	ldi	r24, 0x0C	; 12
+  10:	61 e0       	ldi	r22, 0x01	; 1
+  12:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE>
+  16:	8d e0       	ldi	r24, 0x0D	; 13
+  18:	60 e0       	ldi	r22, 0x00	; 0
+  1a:	00 c0       	rjmp	.+0      	; 0x1c <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0x1c>
+  1c:	8c e0       	ldi	r24, 0x0C	; 12
+  1e:	60 e0       	ldi	r22, 0x00	; 0
+  20:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE>
+  24:	8d e0       	ldi	r24, 0x0D	; 13
+  26:	61 e0       	ldi	r22, 0x01	; 1
+  28:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE>
+  2c:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE:
+
+00000000 <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE>:
+   0:	66 23       	and	r22, r22
+   2:	01 f4       	brne	.+0      	; 0x4 <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE+0x4>
+   4:	83 e0       	ldi	r24, 0x03	; 3
+   6:	00 c0       	rjmp	.+0      	; 0x8 <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE+0x8>
+   8:	83 e0       	ldi	r24, 0x03	; 3
+   a:	61 e0       	ldi	r22, 0x01	; 1
+   c:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE>
+  10:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE:
+
+00000000 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>:
+   0:	ff 92       	push	r15
+   2:	0f 93       	push	r16
+   4:	1f 93       	push	r17
+   6:	cf 93       	push	r28
+   8:	df 93       	push	r29
+   a:	ec 01       	movw	r28, r24
+   c:	16 2f       	mov	r17, r22
+   e:	04 2f       	mov	r16, r20
+  10:	6f 3f       	cpi	r22, 0xFF	; 255
+  12:	01 f4       	brne	.+0      	; 0x14 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x14>
+  14:	8a 81       	ldd	r24, Y+2	; 0x02
+  16:	80 64       	ori	r24, 0x40	; 64
+  18:	8a 83       	std	Y+2, r24	; 0x02
+  1a:	8a b1       	in	r24, 0x0a	; 10
+  1c:	8f 70       	andi	r24, 0x0F	; 15
+  1e:	8a b9       	out	0x0a, r24	; 10
+  20:	84 b1       	in	r24, 0x04	; 4
+  22:	80 7f       	andi	r24, 0xF0	; 240
+  24:	84 b9       	out	0x04, r24	; 4
   26:	8e e0       	ldi	r24, 0x0E	; 14
   28:	60 e0       	ldi	r22, 0x00	; 0
-  2a:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  2e:	8b 81       	ldd	r24, Y+3	; 0x03
-  30:	80 7c       	andi	r24, 0xC0	; 192
-  32:	8b 83       	std	Y+3, r24	; 0x03
-  34:	8c 81       	ldd	r24, Y+4	; 0x04
-  36:	80 7c       	andi	r24, 0xC0	; 192
-  38:	8c 83       	std	Y+4, r24	; 0x04
-  3a:	e8 81       	ld	r30, Y
-  3c:	f9 81       	ldd	r31, Y+1	; 0x01
-  3e:	06 80       	ldd	r0, Z+6	; 0x06
-  40:	f7 81       	ldd	r31, Z+7	; 0x07
-  42:	e0 2d       	mov	r30, r0
-  44:	ce 01       	movw	r24, r28
-  46:	6f ef       	ldi	r22, 0xFF	; 255
-  48:	40 ec       	ldi	r20, 0xC0	; 192
-  4a:	20 e0       	ldi	r18, 0x00	; 0
-  4c:	09 95       	icall
-  4e:	e8 81       	ld	r30, Y
-  50:	f9 81       	ldd	r31, Y+1	; 0x01
-  52:	06 80       	ldd	r0, Z+6	; 0x06
-  54:	f7 81       	ldd	r31, Z+7	; 0x07
-  56:	e0 2d       	mov	r30, r0
-  58:	ce 01       	movw	r24, r28
-  5a:	6f ef       	ldi	r22, 0xFF	; 255
-  5c:	40 e4       	ldi	r20, 0x40	; 64
-  5e:	20 e0       	ldi	r18, 0x00	; 0
-  60:	09 95       	icall
-  62:	e8 81       	ld	r30, Y
-  64:	f9 81       	ldd	r31, Y+1	; 0x01
-  66:	06 80       	ldd	r0, Z+6	; 0x06
-  68:	f7 81       	ldd	r31, Z+7	; 0x07
-  6a:	e0 2d       	mov	r30, r0
-  6c:	ce 01       	movw	r24, r28
-  6e:	6f ef       	ldi	r22, 0xFF	; 255
-  70:	48 eb       	ldi	r20, 0xB8	; 184
-  72:	20 e0       	ldi	r18, 0x00	; 0
-  74:	09 95       	icall
-  76:	e8 81       	ld	r30, Y
-  78:	f9 81       	ldd	r31, Y+1	; 0x01
-  7a:	11 30       	cpi	r17, 0x01	; 1
-  7c:	01 f4       	brne	.+0      	; 0x7e <_ZN12GlcdStraight4initEN4Glcd4ModeE+0x7c>
-  7e:	06 80       	ldd	r0, Z+6	; 0x06
-  80:	f7 81       	ldd	r31, Z+7	; 0x07
-  82:	e0 2d       	mov	r30, r0
-  84:	ce 01       	movw	r24, r28
-  86:	6f ef       	ldi	r22, 0xFF	; 255
-  88:	4f e3       	ldi	r20, 0x3F	; 63
-  8a:	00 c0       	rjmp	.+0      	; 0x8c <_ZN12GlcdStraight4initEN4Glcd4ModeE+0x8a>
-  8c:	06 80       	ldd	r0, Z+6	; 0x06
-  8e:	f7 81       	ldd	r31, Z+7	; 0x07
-  90:	e0 2d       	mov	r30, r0
-  92:	ce 01       	movw	r24, r28
-  94:	6f ef       	ldi	r22, 0xFF	; 255
-  96:	4e e3       	ldi	r20, 0x3E	; 62
-  98:	20 e0       	ldi	r18, 0x00	; 0
-  9a:	09 95       	icall
-  9c:	df 91       	pop	r29
-  9e:	cf 91       	pop	r28
-  a0:	1f 91       	pop	r17
-  a2:	08 95       	ret
+  2a:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  2e:	ce 01       	movw	r24, r28
+  30:	61 2f       	mov	r22, r17
+  32:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  36:	ce 01       	movw	r24, r28
+  38:	60 2f       	mov	r22, r16
+  3a:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  3e:	82 e0       	ldi	r24, 0x02	; 2
+  40:	61 e0       	ldi	r22, 0x01	; 1
+  42:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  46:	01 30       	cpi	r16, 0x01	; 1
+  48:	01 f4       	brne	.+0      	; 0x4a <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x4a>
+  4a:	82 e0       	ldi	r24, 0x02	; 2
+  4c:	f8 2e       	mov	r15, r24
+  4e:	00 c0       	rjmp	.+0      	; 0x50 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x50>
+  50:	ff 24       	eor	r15, r15
+  52:	f3 94       	inc	r15
+  54:	00 e0       	ldi	r16, 0x00	; 0
+  56:	8e e0       	ldi	r24, 0x0E	; 14
+  58:	61 e0       	ldi	r22, 0x01	; 1
+  5a:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  5e:	8a e0       	ldi	r24, 0x0A	; 10
+  60:	90 e0       	ldi	r25, 0x00	; 0
+  62:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  66:	89 b1       	in	r24, 0x09	; 9
+  68:	13 b1       	in	r17, 0x03	; 3
+  6a:	1f 70       	andi	r17, 0x0F	; 15
+  6c:	80 7f       	andi	r24, 0xF0	; 240
+  6e:	18 2b       	or	r17, r24
+  70:	8e e0       	ldi	r24, 0x0E	; 14
+  72:	60 e0       	ldi	r22, 0x00	; 0
+  74:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  78:	0f 5f       	subi	r16, 0xFF	; 255
+  7a:	0f 15       	cp	r16, r15
+  7c:	00 f0       	brcs	.+0      	; 0x7e <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x7e>
+  7e:	ce 01       	movw	r24, r28
+  80:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>
+  84:	81 2f       	mov	r24, r17
+  86:	df 91       	pop	r29
+  88:	cf 91       	pop	r28
+  8a:	1f 91       	pop	r17
+  8c:	0f 91       	pop	r16
+  8e:	ff 90       	pop	r15
+  90:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE:
 
-000000a4 <_ZN12GlcdStraight12disableChipsEv>:
-  a4:	8c e0       	ldi	r24, 0x0C	; 12
-  a6:	60 e0       	ldi	r22, 0x00	; 0
-  a8:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  ac:	8d e0       	ldi	r24, 0x0D	; 13
-  ae:	60 e0       	ldi	r22, 0x00	; 0
-  b0:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  b4:	08 95       	ret
+00000000 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>:
+   0:	ef 92       	push	r14
+   2:	ff 92       	push	r15
+   4:	0f 93       	push	r16
+   6:	1f 93       	push	r17
+   8:	8c 01       	movw	r16, r24
+   a:	e6 2e       	mov	r14, r22
+   c:	f4 2e       	mov	r15, r20
+   e:	62 2f       	mov	r22, r18
+  10:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  14:	82 e0       	ldi	r24, 0x02	; 2
+  16:	60 e0       	ldi	r22, 0x00	; 0
+  18:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  1c:	c8 01       	movw	r24, r16
+  1e:	6e 2d       	mov	r22, r14
+  20:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  24:	8e e0       	ldi	r24, 0x0E	; 14
+  26:	61 e0       	ldi	r22, 0x01	; 1
+  28:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  2c:	8a e0       	ldi	r24, 0x0A	; 10
+  2e:	90 e0       	ldi	r25, 0x00	; 0
+  30:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  34:	8a b1       	in	r24, 0x0a	; 10
+  36:	80 6f       	ori	r24, 0xF0	; 240
+  38:	8a b9       	out	0x0a, r24	; 10
+  3a:	84 b1       	in	r24, 0x04	; 4
+  3c:	8f 60       	ori	r24, 0x0F	; 15
+  3e:	84 b9       	out	0x04, r24	; 4
+  40:	8b b1       	in	r24, 0x0b	; 11
+  42:	9f 2d       	mov	r25, r15
+  44:	90 7f       	andi	r25, 0xF0	; 240
+  46:	8f 70       	andi	r24, 0x0F	; 15
+  48:	98 2b       	or	r25, r24
+  4a:	9b b9       	out	0x0b, r25	; 11
+  4c:	85 b1       	in	r24, 0x05	; 5
+  4e:	9f e0       	ldi	r25, 0x0F	; 15
+  50:	f9 22       	and	r15, r25
+  52:	80 7f       	andi	r24, 0xF0	; 240
+  54:	8f 29       	or	r24, r15
+  56:	85 b9       	out	0x05, r24	; 5
+  58:	8a e0       	ldi	r24, 0x0A	; 10
+  5a:	90 e0       	ldi	r25, 0x00	; 0
+  5c:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  60:	8e e0       	ldi	r24, 0x0E	; 14
+  62:	60 e0       	ldi	r22, 0x00	; 0
+  64:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  68:	c8 01       	movw	r24, r16
+  6a:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>
+  6e:	81 e0       	ldi	r24, 0x01	; 1
+  70:	1f 91       	pop	r17
+  72:	0f 91       	pop	r16
+  74:	ff 90       	pop	r15
+  76:	ef 90       	pop	r14
+  78:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraight6initIoEv:
 
-000000b6 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE>:
-  b6:	6f 3f       	cpi	r22, 0xFF	; 255
-  b8:	01 f4       	brne	.+0      	; 0xba <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0x4>
-  ba:	8c e0       	ldi	r24, 0x0C	; 12
-  bc:	61 e0       	ldi	r22, 0x01	; 1
-  be:	00 c0       	rjmp	.+0      	; 0xc0 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0xa>
-  c0:	66 23       	and	r22, r22
-  c2:	01 f4       	brne	.+0      	; 0xc4 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0xe>
-  c4:	8c e0       	ldi	r24, 0x0C	; 12
-  c6:	61 e0       	ldi	r22, 0x01	; 1
-  c8:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  cc:	8d e0       	ldi	r24, 0x0D	; 13
-  ce:	60 e0       	ldi	r22, 0x00	; 0
-  d0:	00 c0       	rjmp	.+0      	; 0xd2 <_ZN12GlcdStraight12switchChipToEN4Glcd4ChipE+0x1c>
-  d2:	8c e0       	ldi	r24, 0x0C	; 12
-  d4:	60 e0       	ldi	r22, 0x00	; 0
-  d6:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  da:	8d e0       	ldi	r24, 0x0D	; 13
-  dc:	61 e0       	ldi	r22, 0x01	; 1
-  de:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  e2:	08 95       	ret
+00000000 <_ZN12GlcdStraight6initIoEv>:
+   0:	8c e0       	ldi	r24, 0x0C	; 12
+   2:	61 e0       	ldi	r22, 0x01	; 1
+   4:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight6initIoEv>
+   8:	8d e0       	ldi	r24, 0x0D	; 13
+   a:	61 e0       	ldi	r22, 0x01	; 1
+   c:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight6initIoEv>
+  10:	83 e0       	ldi	r24, 0x03	; 3
+  12:	61 e0       	ldi	r22, 0x01	; 1
+  14:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight6initIoEv>
+  18:	82 e0       	ldi	r24, 0x02	; 2
+  1a:	61 e0       	ldi	r22, 0x01	; 1
+  1c:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight6initIoEv>
+  20:	8e e0       	ldi	r24, 0x0E	; 14
+  22:	61 e0       	ldi	r22, 0x01	; 1
+  24:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight6initIoEv>
+  28:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraightC1Ev:
 
-000000e4 <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE>:
-  e4:	66 23       	and	r22, r22
-  e6:	01 f4       	brne	.+0      	; 0xe8 <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE+0x4>
-  e8:	83 e0       	ldi	r24, 0x03	; 3
-  ea:	00 c0       	rjmp	.+0      	; 0xec <_ZN12GlcdStraight22switchRegisterSelectToEN4Glcd14RegisterSelectE+0x8>
-  ec:	83 e0       	ldi	r24, 0x03	; 3
-  ee:	61 e0       	ldi	r22, 0x01	; 1
-  f0:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
-  f4:	08 95       	ret
+00000000 <_ZN12GlcdStraightC1Ev>:
+   0:	0f 93       	push	r16
+   2:	1f 93       	push	r17
+   4:	8c 01       	movw	r16, r24
+   6:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraightC1Ev>
+   a:	80 e0       	ldi	r24, 0x00	; 0
+   c:	90 e0       	ldi	r25, 0x00	; 0
+   e:	f8 01       	movw	r30, r16
+  10:	91 83       	std	Z+1, r25	; 0x01
+  12:	80 83       	st	Z, r24
+  14:	1f 91       	pop	r17
+  16:	0f 91       	pop	r16
+  18:	08 95       	ret
+Disassembly of section .text._ZN12GlcdStraightC2Ev:
 
-000000f6 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE>:
-  f6:	ff 92       	push	r15
-  f8:	0f 93       	push	r16
-  fa:	1f 93       	push	r17
-  fc:	cf 93       	push	r28
-  fe:	df 93       	push	r29
- 100:	ec 01       	movw	r28, r24
- 102:	16 2f       	mov	r17, r22
- 104:	04 2f       	mov	r16, r20
- 106:	6f 3f       	cpi	r22, 0xFF	; 255
- 108:	01 f4       	brne	.+0      	; 0x10a <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x14>
- 10a:	8a 81       	ldd	r24, Y+2	; 0x02
- 10c:	80 64       	ori	r24, 0x40	; 64
- 10e:	8a 83       	std	Y+2, r24	; 0x02
- 110:	8a b1       	in	r24, 0x0a	; 10
- 112:	8f 70       	andi	r24, 0x0F	; 15
- 114:	8a b9       	out	0x0a, r24	; 10
- 116:	84 b1       	in	r24, 0x04	; 4
- 118:	80 7f       	andi	r24, 0xF0	; 240
- 11a:	84 b9       	out	0x04, r24	; 4
- 11c:	8e e0       	ldi	r24, 0x0E	; 14
- 11e:	60 e0       	ldi	r22, 0x00	; 0
- 120:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 124:	ce 01       	movw	r24, r28
- 126:	61 2f       	mov	r22, r17
- 128:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 12c:	ce 01       	movw	r24, r28
- 12e:	60 2f       	mov	r22, r16
- 130:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 134:	82 e0       	ldi	r24, 0x02	; 2
- 136:	61 e0       	ldi	r22, 0x01	; 1
- 138:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 13c:	01 30       	cpi	r16, 0x01	; 1
- 13e:	01 f4       	brne	.+0      	; 0x140 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x4a>
- 140:	82 e0       	ldi	r24, 0x02	; 2
- 142:	f8 2e       	mov	r15, r24
- 144:	00 c0       	rjmp	.+0      	; 0x146 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x50>
- 146:	ff 24       	eor	r15, r15
- 148:	f3 94       	inc	r15
- 14a:	00 e0       	ldi	r16, 0x00	; 0
- 14c:	8e e0       	ldi	r24, 0x0E	; 14
- 14e:	61 e0       	ldi	r22, 0x01	; 1
- 150:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 154:	8a e0       	ldi	r24, 0x0A	; 10
- 156:	90 e0       	ldi	r25, 0x00	; 0
- 158:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 15c:	89 b1       	in	r24, 0x09	; 9
- 15e:	13 b1       	in	r17, 0x03	; 3
- 160:	1f 70       	andi	r17, 0x0F	; 15
- 162:	80 7f       	andi	r24, 0xF0	; 240
- 164:	18 2b       	or	r17, r24
- 166:	8e e0       	ldi	r24, 0x0E	; 14
- 168:	60 e0       	ldi	r22, 0x00	; 0
- 16a:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 16e:	0f 5f       	subi	r16, 0xFF	; 255
- 170:	0f 15       	cp	r16, r15
- 172:	00 f0       	brcs	.+0      	; 0x174 <_ZN12GlcdStraight4readEN4Glcd4ChipENS0_14RegisterSelectE+0x7e>
- 174:	ce 01       	movw	r24, r28
- 176:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 17a:	81 2f       	mov	r24, r17
- 17c:	df 91       	pop	r29
- 17e:	cf 91       	pop	r28
- 180:	1f 91       	pop	r17
- 182:	0f 91       	pop	r16
- 184:	ff 90       	pop	r15
- 186:	08 95       	ret
-
-00000188 <_ZN12GlcdStraight5writeEN4Glcd4ChipEhNS0_14RegisterSelectE>:
- 188:	ef 92       	push	r14
- 18a:	ff 92       	push	r15
- 18c:	0f 93       	push	r16
- 18e:	1f 93       	push	r17
- 190:	8c 01       	movw	r16, r24
- 192:	e6 2e       	mov	r14, r22
- 194:	f4 2e       	mov	r15, r20
- 196:	62 2f       	mov	r22, r18
- 198:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 19c:	82 e0       	ldi	r24, 0x02	; 2
- 19e:	60 e0       	ldi	r22, 0x00	; 0
- 1a0:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1a4:	c8 01       	movw	r24, r16
- 1a6:	6e 2d       	mov	r22, r14
- 1a8:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1ac:	8e e0       	ldi	r24, 0x0E	; 14
- 1ae:	61 e0       	ldi	r22, 0x01	; 1
- 1b0:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1b4:	8a e0       	ldi	r24, 0x0A	; 10
- 1b6:	90 e0       	ldi	r25, 0x00	; 0
- 1b8:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1bc:	8a b1       	in	r24, 0x0a	; 10
- 1be:	80 6f       	ori	r24, 0xF0	; 240
- 1c0:	8a b9       	out	0x0a, r24	; 10
- 1c2:	84 b1       	in	r24, 0x04	; 4
- 1c4:	8f 60       	ori	r24, 0x0F	; 15
- 1c6:	84 b9       	out	0x04, r24	; 4
- 1c8:	8b b1       	in	r24, 0x0b	; 11
- 1ca:	9f 2d       	mov	r25, r15
- 1cc:	90 7f       	andi	r25, 0xF0	; 240
- 1ce:	8f 70       	andi	r24, 0x0F	; 15
- 1d0:	98 2b       	or	r25, r24
- 1d2:	9b b9       	out	0x0b, r25	; 11
- 1d4:	85 b1       	in	r24, 0x05	; 5
- 1d6:	9f e0       	ldi	r25, 0x0F	; 15
- 1d8:	f9 22       	and	r15, r25
- 1da:	80 7f       	andi	r24, 0xF0	; 240
- 1dc:	8f 29       	or	r24, r15
- 1de:	85 b9       	out	0x05, r24	; 5
- 1e0:	8a e0       	ldi	r24, 0x0A	; 10
- 1e2:	90 e0       	ldi	r25, 0x00	; 0
- 1e4:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1e8:	8e e0       	ldi	r24, 0x0E	; 14
- 1ea:	60 e0       	ldi	r22, 0x00	; 0
- 1ec:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1f0:	c8 01       	movw	r24, r16
- 1f2:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 1f6:	81 e0       	ldi	r24, 0x01	; 1
- 1f8:	1f 91       	pop	r17
- 1fa:	0f 91       	pop	r16
- 1fc:	ff 90       	pop	r15
- 1fe:	ef 90       	pop	r14
- 200:	08 95       	ret
-
-00000202 <_ZN12GlcdStraight6initIoEv>:
- 202:	8c e0       	ldi	r24, 0x0C	; 12
- 204:	61 e0       	ldi	r22, 0x01	; 1
- 206:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 20a:	8d e0       	ldi	r24, 0x0D	; 13
- 20c:	61 e0       	ldi	r22, 0x01	; 1
- 20e:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 212:	83 e0       	ldi	r24, 0x03	; 3
- 214:	61 e0       	ldi	r22, 0x01	; 1
- 216:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 21a:	82 e0       	ldi	r24, 0x02	; 2
- 21c:	61 e0       	ldi	r22, 0x01	; 1
- 21e:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 222:	8e e0       	ldi	r24, 0x0E	; 14
- 224:	61 e0       	ldi	r22, 0x01	; 1
- 226:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 22a:	08 95       	ret
-
-0000022c <_ZN12GlcdStraightC1Ev>:
- 22c:	0f 93       	push	r16
- 22e:	1f 93       	push	r17
- 230:	8c 01       	movw	r16, r24
- 232:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 236:	80 e0       	ldi	r24, 0x00	; 0
- 238:	90 e0       	ldi	r25, 0x00	; 0
- 23a:	f8 01       	movw	r30, r16
- 23c:	91 83       	std	Z+1, r25	; 0x01
- 23e:	80 83       	st	Z, r24
- 240:	1f 91       	pop	r17
- 242:	0f 91       	pop	r16
- 244:	08 95       	ret
-
-00000246 <_ZN12GlcdStraightC2Ev>:
- 246:	0f 93       	push	r16
- 248:	1f 93       	push	r17
- 24a:	8c 01       	movw	r16, r24
- 24c:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraight5resetEv>
- 250:	80 e0       	ldi	r24, 0x00	; 0
- 252:	90 e0       	ldi	r25, 0x00	; 0
- 254:	f8 01       	movw	r30, r16
- 256:	91 83       	std	Z+1, r25	; 0x01
- 258:	80 83       	st	Z, r24
- 25a:	1f 91       	pop	r17
- 25c:	0f 91       	pop	r16
- 25e:	08 95       	ret
+00000000 <_ZN12GlcdStraightC2Ev>:
+   0:	0f 93       	push	r16
+   2:	1f 93       	push	r17
+   4:	8c 01       	movw	r16, r24
+   6:	0e 94 00 00 	call	0	; 0x0 <_ZN12GlcdStraightC2Ev>
+   a:	80 e0       	ldi	r24, 0x00	; 0
+   c:	90 e0       	ldi	r25, 0x00	; 0
+   e:	f8 01       	movw	r30, r16
+  10:	91 83       	std	Z+1, r25	; 0x01
+  12:	80 83       	st	Z, r24
+  14:	1f 91       	pop	r17
+  16:	0f 91       	pop	r16
+  18:	08 95       	ret
 
 Glcd.o:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000002a0  00000000  00000000  00000034  2**0
-                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
-  1 .data         0000000e  00000000  00000000  000002d4  2**0
-                  CONTENTS, ALLOC, LOAD, RELOC, DATA
-  2 .bss          00000000  00000000  00000000  000002e2  2**0
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
                   ALLOC
-Disassembly of section .text:
+  3 .text._ZN4GlcdC2Ev 0000000e  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  4 .text._ZN4GlcdC1Ev 0000000e  00000000  00000000  00000042  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  5 .text._ZN4Glcd6initIoEv 00000002  00000000  00000000  00000050  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  6 .text._ZN4Glcd11writeDataAtENS_4ChipEhhh 0000005c  00000000  00000000  00000052  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  7 .text._ZN4Glcd6streakEhhh 00000046  00000000  00000000  000000ae  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  8 .text._ZN4Glcd6screenEh 00000042  00000000  00000000  000000f4  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  9 .text._ZN4Glcd10readDataAtENS_4ChipEhh 00000058  00000000  00000000  00000136  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 10 .text._ZN4Glcd4plotEhhNS_5ColorE 000000c2  00000000  00000000  0000018e  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 11 .text._ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh 00000084  00000000  00000000  00000250  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+ 12 .rodata._ZTV4Glcd 0000000e  00000000  00000000  000002d4  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
+Disassembly of section .text._ZN4GlcdC2Ev:
 
 00000000 <_ZN4GlcdC2Ev>:
    0:	fc 01       	movw	r30, r24
@@ -547,344 +617,352 @@ Disassembly of section .text:
    8:	80 83       	st	Z, r24
    a:	12 82       	std	Z+2, r1	; 0x02
    c:	08 95       	ret
+Disassembly of section .text._ZN4GlcdC1Ev:
 
-0000000e <_ZN4GlcdC1Ev>:
-   e:	fc 01       	movw	r30, r24
-  10:	80 e0       	ldi	r24, 0x00	; 0
-  12:	90 e0       	ldi	r25, 0x00	; 0
-  14:	91 83       	std	Z+1, r25	; 0x01
-  16:	80 83       	st	Z, r24
-  18:	12 82       	std	Z+2, r1	; 0x02
-  1a:	08 95       	ret
+00000000 <_ZN4GlcdC1Ev>:
+   0:	fc 01       	movw	r30, r24
+   2:	80 e0       	ldi	r24, 0x00	; 0
+   4:	90 e0       	ldi	r25, 0x00	; 0
+   6:	91 83       	std	Z+1, r25	; 0x01
+   8:	80 83       	st	Z, r24
+   a:	12 82       	std	Z+2, r1	; 0x02
+   c:	08 95       	ret
+Disassembly of section .text._ZN4Glcd6initIoEv:
 
-0000001c <_ZN4Glcd6initIoEv>:
-  1c:	08 95       	ret
+00000000 <_ZN4Glcd6initIoEv>:
+   0:	08 95       	ret
+Disassembly of section .text._ZN4Glcd11writeDataAtENS_4ChipEhhh:
 
-0000001e <_ZN4Glcd11writeDataAtENS_4ChipEhhh>:
-  1e:	df 92       	push	r13
-  20:	ef 92       	push	r14
-  22:	ff 92       	push	r15
-  24:	0f 93       	push	r16
-  26:	1f 93       	push	r17
-  28:	7c 01       	movw	r14, r24
-  2a:	d6 2e       	mov	r13, r22
-  2c:	12 2f       	mov	r17, r18
-  2e:	dc 01       	movw	r26, r24
-  30:	ed 91       	ld	r30, X+
-  32:	fc 91       	ld	r31, X
-  34:	48 6b       	ori	r20, 0xB8	; 184
-  36:	06 80       	ldd	r0, Z+6	; 0x06
-  38:	f7 81       	ldd	r31, Z+7	; 0x07
-  3a:	e0 2d       	mov	r30, r0
-  3c:	20 e0       	ldi	r18, 0x00	; 0
-  3e:	09 95       	icall
-  40:	d7 01       	movw	r26, r14
-  42:	ed 91       	ld	r30, X+
-  44:	fc 91       	ld	r31, X
-  46:	10 64       	ori	r17, 0x40	; 64
-  48:	06 80       	ldd	r0, Z+6	; 0x06
-  4a:	f7 81       	ldd	r31, Z+7	; 0x07
-  4c:	e0 2d       	mov	r30, r0
-  4e:	c7 01       	movw	r24, r14
-  50:	6d 2d       	mov	r22, r13
-  52:	41 2f       	mov	r20, r17
-  54:	20 e0       	ldi	r18, 0x00	; 0
-  56:	09 95       	icall
-  58:	d7 01       	movw	r26, r14
-  5a:	ed 91       	ld	r30, X+
-  5c:	fc 91       	ld	r31, X
-  5e:	06 80       	ldd	r0, Z+6	; 0x06
-  60:	f7 81       	ldd	r31, Z+7	; 0x07
-  62:	e0 2d       	mov	r30, r0
-  64:	c7 01       	movw	r24, r14
-  66:	6d 2d       	mov	r22, r13
-  68:	40 2f       	mov	r20, r16
-  6a:	21 e0       	ldi	r18, 0x01	; 1
-  6c:	09 95       	icall
-  6e:	1f 91       	pop	r17
-  70:	0f 91       	pop	r16
-  72:	ff 90       	pop	r15
-  74:	ef 90       	pop	r14
-  76:	df 90       	pop	r13
-  78:	08 95       	ret
+00000000 <_ZN4Glcd11writeDataAtENS_4ChipEhhh>:
+   0:	df 92       	push	r13
+   2:	ef 92       	push	r14
+   4:	ff 92       	push	r15
+   6:	0f 93       	push	r16
+   8:	1f 93       	push	r17
+   a:	7c 01       	movw	r14, r24
+   c:	d6 2e       	mov	r13, r22
+   e:	12 2f       	mov	r17, r18
+  10:	dc 01       	movw	r26, r24
+  12:	ed 91       	ld	r30, X+
+  14:	fc 91       	ld	r31, X
+  16:	48 6b       	ori	r20, 0xB8	; 184
+  18:	06 80       	ldd	r0, Z+6	; 0x06
+  1a:	f7 81       	ldd	r31, Z+7	; 0x07
+  1c:	e0 2d       	mov	r30, r0
+  1e:	20 e0       	ldi	r18, 0x00	; 0
+  20:	09 95       	icall
+  22:	d7 01       	movw	r26, r14
+  24:	ed 91       	ld	r30, X+
+  26:	fc 91       	ld	r31, X
+  28:	10 64       	ori	r17, 0x40	; 64
+  2a:	06 80       	ldd	r0, Z+6	; 0x06
+  2c:	f7 81       	ldd	r31, Z+7	; 0x07
+  2e:	e0 2d       	mov	r30, r0
+  30:	c7 01       	movw	r24, r14
+  32:	6d 2d       	mov	r22, r13
+  34:	41 2f       	mov	r20, r17
+  36:	20 e0       	ldi	r18, 0x00	; 0
+  38:	09 95       	icall
+  3a:	d7 01       	movw	r26, r14
+  3c:	ed 91       	ld	r30, X+
+  3e:	fc 91       	ld	r31, X
+  40:	06 80       	ldd	r0, Z+6	; 0x06
+  42:	f7 81       	ldd	r31, Z+7	; 0x07
+  44:	e0 2d       	mov	r30, r0
+  46:	c7 01       	movw	r24, r14
+  48:	6d 2d       	mov	r22, r13
+  4a:	40 2f       	mov	r20, r16
+  4c:	21 e0       	ldi	r18, 0x01	; 1
+  4e:	09 95       	icall
+  50:	1f 91       	pop	r17
+  52:	0f 91       	pop	r16
+  54:	ff 90       	pop	r15
+  56:	ef 90       	pop	r14
+  58:	df 90       	pop	r13
+  5a:	08 95       	ret
+Disassembly of section .text._ZN4Glcd6streakEhhh:
 
-0000007a <_ZN4Glcd6streakEhhh>:
-  7a:	0f 93       	push	r16
-  7c:	fc 01       	movw	r30, r24
-  7e:	36 2f       	mov	r19, r22
-  80:	02 2f       	mov	r16, r18
-  82:	61 38       	cpi	r22, 0x81	; 129
-  84:	00 f4       	brcc	.+0      	; 0x86 <_ZN4Glcd6streakEhhh+0xc>
-  86:	64 2f       	mov	r22, r20
-  88:	66 0f       	add	r22, r22
-  8a:	66 0f       	add	r22, r22
-  8c:	66 0f       	add	r22, r22
-  8e:	61 34       	cpi	r22, 0x41	; 65
-  90:	00 f0       	brcs	.+0      	; 0x92 <_ZN4Glcd6streakEhhh+0x18>
-  92:	82 81       	ldd	r24, Z+2	; 0x02
-  94:	80 62       	ori	r24, 0x20	; 32
-  96:	82 83       	std	Z+2, r24	; 0x02
-  98:	80 e0       	ldi	r24, 0x00	; 0
-  9a:	0f 91       	pop	r16
-  9c:	08 95       	ret
-  9e:	62 95       	swap	r22
-  a0:	66 95       	lsr	r22
-  a2:	66 95       	lsr	r22
-  a4:	63 70       	andi	r22, 0x03	; 3
-  a6:	66 0f       	add	r22, r22
-  a8:	83 2f       	mov	r24, r19
-  aa:	82 95       	swap	r24
-  ac:	86 95       	lsr	r24
-  ae:	86 95       	lsr	r24
-  b0:	83 70       	andi	r24, 0x03	; 3
-  b2:	68 0f       	add	r22, r24
-  b4:	3f 73       	andi	r19, 0x3F	; 63
-  b6:	cf 01       	movw	r24, r30
-  b8:	23 2f       	mov	r18, r19
-  ba:	0e 94 00 00 	call	0	; 0x0 <_ZN4GlcdC2Ev>
-  be:	00 c0       	rjmp	.+0      	; 0xc0 <_ZN4Glcd6screenEh>
+00000000 <_ZN4Glcd6streakEhhh>:
+   0:	0f 93       	push	r16
+   2:	fc 01       	movw	r30, r24
+   4:	36 2f       	mov	r19, r22
+   6:	02 2f       	mov	r16, r18
+   8:	61 38       	cpi	r22, 0x81	; 129
+   a:	00 f4       	brcc	.+0      	; 0xc <_ZN4Glcd6streakEhhh+0xc>
+   c:	64 2f       	mov	r22, r20
+   e:	66 0f       	add	r22, r22
+  10:	66 0f       	add	r22, r22
+  12:	66 0f       	add	r22, r22
+  14:	61 34       	cpi	r22, 0x41	; 65
+  16:	00 f0       	brcs	.+0      	; 0x18 <_ZN4Glcd6streakEhhh+0x18>
+  18:	82 81       	ldd	r24, Z+2	; 0x02
+  1a:	80 62       	ori	r24, 0x20	; 32
+  1c:	82 83       	std	Z+2, r24	; 0x02
+  1e:	80 e0       	ldi	r24, 0x00	; 0
+  20:	0f 91       	pop	r16
+  22:	08 95       	ret
+  24:	62 95       	swap	r22
+  26:	66 95       	lsr	r22
+  28:	66 95       	lsr	r22
+  2a:	63 70       	andi	r22, 0x03	; 3
+  2c:	66 0f       	add	r22, r22
+  2e:	83 2f       	mov	r24, r19
+  30:	82 95       	swap	r24
+  32:	86 95       	lsr	r24
+  34:	86 95       	lsr	r24
+  36:	83 70       	andi	r24, 0x03	; 3
+  38:	68 0f       	add	r22, r24
+  3a:	3f 73       	andi	r19, 0x3F	; 63
+  3c:	cf 01       	movw	r24, r30
+  3e:	23 2f       	mov	r18, r19
+  40:	0e 94 00 00 	call	0	; 0x0 <_ZN4Glcd6streakEhhh>
+  44:	00 c0       	rjmp	.+0      	; 0x46 <__SREG__+0x7>
+Disassembly of section .text._ZN4Glcd6screenEh:
 
-000000c0 <_ZN4Glcd6screenEh>:
-  c0:	ef 92       	push	r14
-  c2:	ff 92       	push	r15
-  c4:	0f 93       	push	r16
-  c6:	1f 93       	push	r17
-  c8:	cf 93       	push	r28
-  ca:	df 93       	push	r29
-  cc:	ec 01       	movw	r28, r24
-  ce:	e6 2e       	mov	r14, r22
-  d0:	ff 24       	eor	r15, r15
-  d2:	00 c0       	rjmp	.+0      	; 0xd4 <_ZN4Glcd6screenEh+0x14>
-  d4:	ce 01       	movw	r24, r28
-  d6:	6f ef       	ldi	r22, 0xFF	; 255
-  d8:	4f 2d       	mov	r20, r15
-  da:	21 2f       	mov	r18, r17
-  dc:	0e 2d       	mov	r16, r14
-  de:	0e 94 00 00 	call	0	; 0x0 <_ZN4GlcdC2Ev>
-  e2:	1f 5f       	subi	r17, 0xFF	; 255
-  e4:	10 34       	cpi	r17, 0x40	; 64
-  e6:	01 f4       	brne	.+0      	; 0xe8 <_ZN4Glcd6screenEh+0x28>
-  e8:	f3 94       	inc	r15
-  ea:	88 e0       	ldi	r24, 0x08	; 8
-  ec:	f8 16       	cp	r15, r24
-  ee:	01 f0       	breq	.+0      	; 0xf0 <_ZN4Glcd6screenEh+0x30>
-  f0:	10 e0       	ldi	r17, 0x00	; 0
-  f2:	00 c0       	rjmp	.+0      	; 0xf4 <_ZN4Glcd6screenEh+0x34>
-  f4:	df 91       	pop	r29
-  f6:	cf 91       	pop	r28
-  f8:	1f 91       	pop	r17
-  fa:	0f 91       	pop	r16
-  fc:	ff 90       	pop	r15
-  fe:	ef 90       	pop	r14
- 100:	08 95       	ret
+00000000 <_ZN4Glcd6screenEh>:
+   0:	ef 92       	push	r14
+   2:	ff 92       	push	r15
+   4:	0f 93       	push	r16
+   6:	1f 93       	push	r17
+   8:	cf 93       	push	r28
+   a:	df 93       	push	r29
+   c:	ec 01       	movw	r28, r24
+   e:	e6 2e       	mov	r14, r22
+  10:	ff 24       	eor	r15, r15
+  12:	00 c0       	rjmp	.+0      	; 0x14 <_ZN4Glcd6screenEh+0x14>
+  14:	ce 01       	movw	r24, r28
+  16:	6f ef       	ldi	r22, 0xFF	; 255
+  18:	4f 2d       	mov	r20, r15
+  1a:	21 2f       	mov	r18, r17
+  1c:	0e 2d       	mov	r16, r14
+  1e:	0e 94 00 00 	call	0	; 0x0 <_ZN4Glcd6screenEh>
+  22:	1f 5f       	subi	r17, 0xFF	; 255
+  24:	10 34       	cpi	r17, 0x40	; 64
+  26:	01 f4       	brne	.+0      	; 0x28 <_ZN4Glcd6screenEh+0x28>
+  28:	f3 94       	inc	r15
+  2a:	88 e0       	ldi	r24, 0x08	; 8
+  2c:	f8 16       	cp	r15, r24
+  2e:	01 f0       	breq	.+0      	; 0x30 <_ZN4Glcd6screenEh+0x30>
+  30:	10 e0       	ldi	r17, 0x00	; 0
+  32:	00 c0       	rjmp	.+0      	; 0x34 <_ZN4Glcd6screenEh+0x34>
+  34:	df 91       	pop	r29
+  36:	cf 91       	pop	r28
+  38:	1f 91       	pop	r17
+  3a:	0f 91       	pop	r16
+  3c:	ff 90       	pop	r15
+  3e:	ef 90       	pop	r14
+  40:	08 95       	ret
+Disassembly of section .text._ZN4Glcd10readDataAtENS_4ChipEhh:
 
-00000102 <_ZN4Glcd10readDataAtENS_4ChipEhh>:
- 102:	ef 92       	push	r14
- 104:	ff 92       	push	r15
- 106:	0f 93       	push	r16
- 108:	1f 93       	push	r17
- 10a:	8c 01       	movw	r16, r24
- 10c:	e6 2e       	mov	r14, r22
- 10e:	f2 2e       	mov	r15, r18
- 110:	dc 01       	movw	r26, r24
- 112:	ed 91       	ld	r30, X+
- 114:	fc 91       	ld	r31, X
- 116:	48 6b       	ori	r20, 0xB8	; 184
- 118:	06 80       	ldd	r0, Z+6	; 0x06
- 11a:	f7 81       	ldd	r31, Z+7	; 0x07
- 11c:	e0 2d       	mov	r30, r0
- 11e:	20 e0       	ldi	r18, 0x00	; 0
- 120:	09 95       	icall
- 122:	d8 01       	movw	r26, r16
- 124:	ed 91       	ld	r30, X+
- 126:	fc 91       	ld	r31, X
- 128:	b0 e4       	ldi	r27, 0x40	; 64
- 12a:	fb 2a       	or	r15, r27
- 12c:	06 80       	ldd	r0, Z+6	; 0x06
- 12e:	f7 81       	ldd	r31, Z+7	; 0x07
- 130:	e0 2d       	mov	r30, r0
- 132:	c8 01       	movw	r24, r16
- 134:	6e 2d       	mov	r22, r14
- 136:	4f 2d       	mov	r20, r15
- 138:	20 e0       	ldi	r18, 0x00	; 0
- 13a:	09 95       	icall
- 13c:	d8 01       	movw	r26, r16
- 13e:	ed 91       	ld	r30, X+
- 140:	fc 91       	ld	r31, X
- 142:	00 84       	ldd	r0, Z+8	; 0x08
- 144:	f1 85       	ldd	r31, Z+9	; 0x09
- 146:	e0 2d       	mov	r30, r0
- 148:	c8 01       	movw	r24, r16
- 14a:	6e 2d       	mov	r22, r14
- 14c:	41 e0       	ldi	r20, 0x01	; 1
- 14e:	09 95       	icall
- 150:	1f 91       	pop	r17
- 152:	0f 91       	pop	r16
- 154:	ff 90       	pop	r15
- 156:	ef 90       	pop	r14
- 158:	08 95       	ret
+00000000 <_ZN4Glcd10readDataAtENS_4ChipEhh>:
+   0:	ef 92       	push	r14
+   2:	ff 92       	push	r15
+   4:	0f 93       	push	r16
+   6:	1f 93       	push	r17
+   8:	8c 01       	movw	r16, r24
+   a:	e6 2e       	mov	r14, r22
+   c:	f2 2e       	mov	r15, r18
+   e:	dc 01       	movw	r26, r24
+  10:	ed 91       	ld	r30, X+
+  12:	fc 91       	ld	r31, X
+  14:	48 6b       	ori	r20, 0xB8	; 184
+  16:	06 80       	ldd	r0, Z+6	; 0x06
+  18:	f7 81       	ldd	r31, Z+7	; 0x07
+  1a:	e0 2d       	mov	r30, r0
+  1c:	20 e0       	ldi	r18, 0x00	; 0
+  1e:	09 95       	icall
+  20:	d8 01       	movw	r26, r16
+  22:	ed 91       	ld	r30, X+
+  24:	fc 91       	ld	r31, X
+  26:	b0 e4       	ldi	r27, 0x40	; 64
+  28:	fb 2a       	or	r15, r27
+  2a:	06 80       	ldd	r0, Z+6	; 0x06
+  2c:	f7 81       	ldd	r31, Z+7	; 0x07
+  2e:	e0 2d       	mov	r30, r0
+  30:	c8 01       	movw	r24, r16
+  32:	6e 2d       	mov	r22, r14
+  34:	4f 2d       	mov	r20, r15
+  36:	20 e0       	ldi	r18, 0x00	; 0
+  38:	09 95       	icall
+  3a:	d8 01       	movw	r26, r16
+  3c:	ed 91       	ld	r30, X+
+  3e:	fc 91       	ld	r31, X
+  40:	00 84       	ldd	r0, Z+8	; 0x08
+  42:	f1 85       	ldd	r31, Z+9	; 0x09
+  44:	e0 2d       	mov	r30, r0
+  46:	c8 01       	movw	r24, r16
+  48:	6e 2d       	mov	r22, r14
+  4a:	41 e0       	ldi	r20, 0x01	; 1
+  4c:	09 95       	icall
+  4e:	1f 91       	pop	r17
+  50:	0f 91       	pop	r16
+  52:	ff 90       	pop	r15
+  54:	ef 90       	pop	r14
+  56:	08 95       	ret
+Disassembly of section .text._ZN4Glcd4plotEhhNS_5ColorE:
 
-0000015a <_ZN4Glcd4plotEhhNS_5ColorE>:
- 15a:	df 92       	push	r13
- 15c:	ef 92       	push	r14
- 15e:	ff 92       	push	r15
- 160:	0f 93       	push	r16
- 162:	1f 93       	push	r17
- 164:	cf 93       	push	r28
- 166:	df 93       	push	r29
- 168:	ec 01       	movw	r28, r24
- 16a:	04 2f       	mov	r16, r20
- 16c:	e2 2e       	mov	r14, r18
- 16e:	61 38       	cpi	r22, 0x81	; 129
- 170:	00 f4       	brcc	.+0      	; 0x172 <_ZN4Glcd4plotEhhNS_5ColorE+0x18>
- 172:	41 34       	cpi	r20, 0x41	; 65
- 174:	00 f0       	brcs	.+0      	; 0x176 <_ZN4Glcd4plotEhhNS_5ColorE+0x1c>
- 176:	8a 81       	ldd	r24, Y+2	; 0x02
- 178:	80 62       	ori	r24, 0x20	; 32
- 17a:	8a 83       	std	Y+2, r24	; 0x02
- 17c:	80 e0       	ldi	r24, 0x00	; 0
- 17e:	00 c0       	rjmp	.+0      	; 0x180 <_ZN4Glcd4plotEhhNS_5ColorE+0x26>
- 180:	07 70       	andi	r16, 0x07	; 7
- 182:	81 e0       	ldi	r24, 0x01	; 1
- 184:	90 e0       	ldi	r25, 0x00	; 0
- 186:	a0 e0       	ldi	r26, 0x00	; 0
- 188:	b0 e0       	ldi	r27, 0x00	; 0
- 18a:	00 c0       	rjmp	.+0      	; 0x18c <_ZN4Glcd4plotEhhNS_5ColorE+0x32>
- 18c:	88 0f       	add	r24, r24
- 18e:	99 1f       	adc	r25, r25
- 190:	aa 1f       	adc	r26, r26
- 192:	bb 1f       	adc	r27, r27
- 194:	0a 95       	dec	r16
- 196:	02 f4       	brpl	.+0      	; 0x198 <_ZN4Glcd4plotEhhNS_5ColorE+0x3e>
- 198:	02 2f       	mov	r16, r18
- 19a:	08 2b       	or	r16, r24
- 19c:	00 c0       	rjmp	.+0      	; 0x19e <_ZN4Glcd4plotEhhNS_5ColorE+0x44>
- 19e:	07 70       	andi	r16, 0x07	; 7
- 1a0:	81 e0       	ldi	r24, 0x01	; 1
- 1a2:	90 e0       	ldi	r25, 0x00	; 0
- 1a4:	a0 e0       	ldi	r26, 0x00	; 0
- 1a6:	b0 e0       	ldi	r27, 0x00	; 0
- 1a8:	00 c0       	rjmp	.+0      	; 0x1aa <_ZN4Glcd4plotEhhNS_5ColorE+0x50>
- 1aa:	88 0f       	add	r24, r24
- 1ac:	99 1f       	adc	r25, r25
- 1ae:	aa 1f       	adc	r26, r26
- 1b0:	bb 1f       	adc	r27, r27
- 1b2:	0a 95       	dec	r16
- 1b4:	02 f4       	brpl	.+0      	; 0x1b6 <_ZN4Glcd4plotEhhNS_5ColorE+0x5c>
- 1b6:	08 2f       	mov	r16, r24
- 1b8:	00 95       	com	r16
- 1ba:	02 23       	and	r16, r18
- 1bc:	ce 01       	movw	r24, r28
- 1be:	61 2f       	mov	r22, r17
- 1c0:	4d 2d       	mov	r20, r13
- 1c2:	2f 2d       	mov	r18, r15
- 1c4:	0e 94 00 00 	call	0	; 0x0 <_ZN4GlcdC2Ev>
- 1c8:	df 91       	pop	r29
- 1ca:	cf 91       	pop	r28
- 1cc:	1f 91       	pop	r17
- 1ce:	0f 91       	pop	r16
- 1d0:	ff 90       	pop	r15
- 1d2:	ef 90       	pop	r14
- 1d4:	df 90       	pop	r13
- 1d6:	08 95       	ret
- 1d8:	14 2f       	mov	r17, r20
- 1da:	12 95       	swap	r17
- 1dc:	16 95       	lsr	r17
- 1de:	16 95       	lsr	r17
- 1e0:	13 70       	andi	r17, 0x03	; 3
- 1e2:	11 0f       	add	r17, r17
- 1e4:	86 2f       	mov	r24, r22
- 1e6:	82 95       	swap	r24
- 1e8:	86 95       	lsr	r24
- 1ea:	86 95       	lsr	r24
- 1ec:	83 70       	andi	r24, 0x03	; 3
- 1ee:	18 0f       	add	r17, r24
- 1f0:	50 e0       	ldi	r21, 0x00	; 0
- 1f2:	4f 73       	andi	r20, 0x3F	; 63
- 1f4:	50 70       	andi	r21, 0x00	; 0
- 1f6:	93 e0       	ldi	r25, 0x03	; 3
- 1f8:	55 95       	asr	r21
- 1fa:	47 95       	ror	r20
- 1fc:	9a 95       	dec	r25
- 1fe:	01 f4       	brne	.+0      	; 0x200 <_ZN4Glcd4plotEhhNS_5ColorE+0xa6>
- 200:	d4 2e       	mov	r13, r20
- 202:	8f e3       	ldi	r24, 0x3F	; 63
- 204:	f8 2e       	mov	r15, r24
- 206:	f6 22       	and	r15, r22
- 208:	ce 01       	movw	r24, r28
- 20a:	61 2f       	mov	r22, r17
- 20c:	2f 2d       	mov	r18, r15
- 20e:	0e 94 00 00 	call	0	; 0x0 <_ZN4GlcdC2Ev>
- 212:	28 2f       	mov	r18, r24
- 214:	ee 20       	and	r14, r14
- 216:	01 f0       	breq	.+0      	; 0x218 <_ZN4Glcd4plotEhhNS_5ColorE+0xbe>
- 218:	00 c0       	rjmp	.+0      	; 0x21a <_ZN4Glcd4plotEhhNS_5ColorE+0xc0>
- 21a:	00 c0       	rjmp	.+0      	; 0x21c <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh>
+00000000 <_ZN4Glcd4plotEhhNS_5ColorE>:
+   0:	df 92       	push	r13
+   2:	ef 92       	push	r14
+   4:	ff 92       	push	r15
+   6:	0f 93       	push	r16
+   8:	1f 93       	push	r17
+   a:	cf 93       	push	r28
+   c:	df 93       	push	r29
+   e:	ec 01       	movw	r28, r24
+  10:	04 2f       	mov	r16, r20
+  12:	e2 2e       	mov	r14, r18
+  14:	61 38       	cpi	r22, 0x81	; 129
+  16:	00 f4       	brcc	.+0      	; 0x18 <_ZN4Glcd4plotEhhNS_5ColorE+0x18>
+  18:	41 34       	cpi	r20, 0x41	; 65
+  1a:	00 f0       	brcs	.+0      	; 0x1c <_ZN4Glcd4plotEhhNS_5ColorE+0x1c>
+  1c:	8a 81       	ldd	r24, Y+2	; 0x02
+  1e:	80 62       	ori	r24, 0x20	; 32
+  20:	8a 83       	std	Y+2, r24	; 0x02
+  22:	80 e0       	ldi	r24, 0x00	; 0
+  24:	00 c0       	rjmp	.+0      	; 0x26 <_ZN4Glcd4plotEhhNS_5ColorE+0x26>
+  26:	07 70       	andi	r16, 0x07	; 7
+  28:	81 e0       	ldi	r24, 0x01	; 1
+  2a:	90 e0       	ldi	r25, 0x00	; 0
+  2c:	a0 e0       	ldi	r26, 0x00	; 0
+  2e:	b0 e0       	ldi	r27, 0x00	; 0
+  30:	00 c0       	rjmp	.+0      	; 0x32 <_ZN4Glcd4plotEhhNS_5ColorE+0x32>
+  32:	88 0f       	add	r24, r24
+  34:	99 1f       	adc	r25, r25
+  36:	aa 1f       	adc	r26, r26
+  38:	bb 1f       	adc	r27, r27
+  3a:	0a 95       	dec	r16
+  3c:	02 f4       	brpl	.+0      	; 0x3e <_ZN4Glcd4plotEhhNS_5ColorE+0x3e>
+  3e:	02 2f       	mov	r16, r18
+  40:	08 2b       	or	r16, r24
+  42:	00 c0       	rjmp	.+0      	; 0x44 <_ZN4Glcd4plotEhhNS_5ColorE+0x44>
+  44:	07 70       	andi	r16, 0x07	; 7
+  46:	81 e0       	ldi	r24, 0x01	; 1
+  48:	90 e0       	ldi	r25, 0x00	; 0
+  4a:	a0 e0       	ldi	r26, 0x00	; 0
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	00 c0       	rjmp	.+0      	; 0x50 <_ZN4Glcd4plotEhhNS_5ColorE+0x50>
+  50:	88 0f       	add	r24, r24
+  52:	99 1f       	adc	r25, r25
+  54:	aa 1f       	adc	r26, r26
+  56:	bb 1f       	adc	r27, r27
+  58:	0a 95       	dec	r16
+  5a:	02 f4       	brpl	.+0      	; 0x5c <_ZN4Glcd4plotEhhNS_5ColorE+0x5c>
+  5c:	08 2f       	mov	r16, r24
+  5e:	00 95       	com	r16
+  60:	02 23       	and	r16, r18
+  62:	ce 01       	movw	r24, r28
+  64:	61 2f       	mov	r22, r17
+  66:	4d 2d       	mov	r20, r13
+  68:	2f 2d       	mov	r18, r15
+  6a:	0e 94 00 00 	call	0	; 0x0 <_ZN4Glcd4plotEhhNS_5ColorE>
+  6e:	df 91       	pop	r29
+  70:	cf 91       	pop	r28
+  72:	1f 91       	pop	r17
+  74:	0f 91       	pop	r16
+  76:	ff 90       	pop	r15
+  78:	ef 90       	pop	r14
+  7a:	df 90       	pop	r13
+  7c:	08 95       	ret
+  7e:	14 2f       	mov	r17, r20
+  80:	12 95       	swap	r17
+  82:	16 95       	lsr	r17
+  84:	16 95       	lsr	r17
+  86:	13 70       	andi	r17, 0x03	; 3
+  88:	11 0f       	add	r17, r17
+  8a:	86 2f       	mov	r24, r22
+  8c:	82 95       	swap	r24
+  8e:	86 95       	lsr	r24
+  90:	86 95       	lsr	r24
+  92:	83 70       	andi	r24, 0x03	; 3
+  94:	18 0f       	add	r17, r24
+  96:	50 e0       	ldi	r21, 0x00	; 0
+  98:	4f 73       	andi	r20, 0x3F	; 63
+  9a:	50 70       	andi	r21, 0x00	; 0
+  9c:	93 e0       	ldi	r25, 0x03	; 3
+  9e:	55 95       	asr	r21
+  a0:	47 95       	ror	r20
+  a2:	9a 95       	dec	r25
+  a4:	01 f4       	brne	.+0      	; 0xa6 <_ZN4Glcd4plotEhhNS_5ColorE+0xa6>
+  a6:	d4 2e       	mov	r13, r20
+  a8:	8f e3       	ldi	r24, 0x3F	; 63
+  aa:	f8 2e       	mov	r15, r24
+  ac:	f6 22       	and	r15, r22
+  ae:	ce 01       	movw	r24, r28
+  b0:	61 2f       	mov	r22, r17
+  b2:	2f 2d       	mov	r18, r15
+  b4:	0e 94 00 00 	call	0	; 0x0 <_ZN4Glcd4plotEhhNS_5ColorE>
+  b8:	28 2f       	mov	r18, r24
+  ba:	ee 20       	and	r14, r14
+  bc:	01 f0       	breq	.+0      	; 0xbe <_ZN4Glcd4plotEhhNS_5ColorE+0xbe>
+  be:	00 c0       	rjmp	.+0      	; 0xc0 <_ZN4Glcd4plotEhhNS_5ColorE+0xc0>
+  c0:	00 c0       	rjmp	.+0      	; 0xc2 <__SREG__+0x83>
+Disassembly of section .text._ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh:
 
-0000021c <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh>:
- 21c:	1f 93       	push	r17
- 21e:	cf 93       	push	r28
- 220:	df 93       	push	r29
- 222:	ec 01       	movw	r28, r24
- 224:	12 2f       	mov	r17, r18
- 226:	41 30       	cpi	r20, 0x01	; 1
- 228:	01 f4       	brne	.+0      	; 0x22a <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh+0xe>
- 22a:	11 95       	neg	r17
- 22c:	6f 3f       	cpi	r22, 0xFF	; 255
- 22e:	01 f4       	brne	.+0      	; 0x230 <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh+0x14>
- 230:	8b 81       	ldd	r24, Y+3	; 0x03
- 232:	48 2f       	mov	r20, r24
- 234:	41 0f       	add	r20, r17
- 236:	4f 73       	andi	r20, 0x3F	; 63
- 238:	80 7c       	andi	r24, 0xC0	; 192
- 23a:	84 2b       	or	r24, r20
- 23c:	8b 83       	std	Y+3, r24	; 0x03
- 23e:	e8 81       	ld	r30, Y
- 240:	f9 81       	ldd	r31, Y+1	; 0x01
- 242:	40 6c       	ori	r20, 0xC0	; 192
- 244:	06 80       	ldd	r0, Z+6	; 0x06
- 246:	f7 81       	ldd	r31, Z+7	; 0x07
- 248:	e0 2d       	mov	r30, r0
- 24a:	ce 01       	movw	r24, r28
- 24c:	60 e0       	ldi	r22, 0x00	; 0
- 24e:	20 e0       	ldi	r18, 0x00	; 0
- 250:	09 95       	icall
- 252:	8c 81       	ldd	r24, Y+4	; 0x04
- 254:	48 2f       	mov	r20, r24
- 256:	41 0f       	add	r20, r17
- 258:	4f 73       	andi	r20, 0x3F	; 63
- 25a:	80 7c       	andi	r24, 0xC0	; 192
- 25c:	84 2b       	or	r24, r20
- 25e:	8c 83       	std	Y+4, r24	; 0x04
- 260:	e8 81       	ld	r30, Y
- 262:	f9 81       	ldd	r31, Y+1	; 0x01
- 264:	40 6c       	ori	r20, 0xC0	; 192
- 266:	06 80       	ldd	r0, Z+6	; 0x06
- 268:	f7 81       	ldd	r31, Z+7	; 0x07
- 26a:	e0 2d       	mov	r30, r0
- 26c:	ce 01       	movw	r24, r28
- 26e:	61 e0       	ldi	r22, 0x01	; 1
- 270:	00 c0       	rjmp	.+0      	; 0x272 <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh+0x56>
- 272:	fe 01       	movw	r30, r28
- 274:	e6 0f       	add	r30, r22
- 276:	f1 1d       	adc	r31, r1
- 278:	83 81       	ldd	r24, Z+3	; 0x03
- 27a:	48 2f       	mov	r20, r24
- 27c:	41 0f       	add	r20, r17
- 27e:	4f 73       	andi	r20, 0x3F	; 63
- 280:	80 7c       	andi	r24, 0xC0	; 192
- 282:	84 2b       	or	r24, r20
- 284:	83 83       	std	Z+3, r24	; 0x03
- 286:	e8 81       	ld	r30, Y
- 288:	f9 81       	ldd	r31, Y+1	; 0x01
- 28a:	40 6c       	ori	r20, 0xC0	; 192
- 28c:	06 80       	ldd	r0, Z+6	; 0x06
- 28e:	f7 81       	ldd	r31, Z+7	; 0x07
- 290:	e0 2d       	mov	r30, r0
- 292:	ce 01       	movw	r24, r28
- 294:	20 e0       	ldi	r18, 0x00	; 0
- 296:	09 95       	icall
- 298:	df 91       	pop	r29
- 29a:	cf 91       	pop	r28
- 29c:	1f 91       	pop	r17
- 29e:	08 95       	ret
+00000000 <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh>:
+   0:	1f 93       	push	r17
+   2:	cf 93       	push	r28
+   4:	df 93       	push	r29
+   6:	ec 01       	movw	r28, r24
+   8:	12 2f       	mov	r17, r18
+   a:	41 30       	cpi	r20, 0x01	; 1
+   c:	01 f4       	brne	.+0      	; 0xe <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh+0xe>
+   e:	11 95       	neg	r17
+  10:	6f 3f       	cpi	r22, 0xFF	; 255
+  12:	01 f4       	brne	.+0      	; 0x14 <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh+0x14>
+  14:	8b 81       	ldd	r24, Y+3	; 0x03
+  16:	48 2f       	mov	r20, r24
+  18:	41 0f       	add	r20, r17
+  1a:	4f 73       	andi	r20, 0x3F	; 63
+  1c:	80 7c       	andi	r24, 0xC0	; 192
+  1e:	84 2b       	or	r24, r20
+  20:	8b 83       	std	Y+3, r24	; 0x03
+  22:	e8 81       	ld	r30, Y
+  24:	f9 81       	ldd	r31, Y+1	; 0x01
+  26:	40 6c       	ori	r20, 0xC0	; 192
+  28:	06 80       	ldd	r0, Z+6	; 0x06
+  2a:	f7 81       	ldd	r31, Z+7	; 0x07
+  2c:	e0 2d       	mov	r30, r0
+  2e:	ce 01       	movw	r24, r28
+  30:	60 e0       	ldi	r22, 0x00	; 0
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	09 95       	icall
+  36:	8c 81       	ldd	r24, Y+4	; 0x04
+  38:	48 2f       	mov	r20, r24
+  3a:	41 0f       	add	r20, r17
+  3c:	4f 73       	andi	r20, 0x3F	; 63
+  3e:	80 7c       	andi	r24, 0xC0	; 192
+  40:	84 2b       	or	r24, r20
+  42:	8c 83       	std	Y+4, r24	; 0x04
+  44:	e8 81       	ld	r30, Y
+  46:	f9 81       	ldd	r31, Y+1	; 0x01
+  48:	40 6c       	ori	r20, 0xC0	; 192
+  4a:	06 80       	ldd	r0, Z+6	; 0x06
+  4c:	f7 81       	ldd	r31, Z+7	; 0x07
+  4e:	e0 2d       	mov	r30, r0
+  50:	ce 01       	movw	r24, r28
+  52:	61 e0       	ldi	r22, 0x01	; 1
+  54:	00 c0       	rjmp	.+0      	; 0x56 <_ZN4Glcd6scrollENS_4ChipENS_15ScrollDirectionEh+0x56>
+  56:	fe 01       	movw	r30, r28
+  58:	e6 0f       	add	r30, r22
+  5a:	f1 1d       	adc	r31, r1
+  5c:	83 81       	ldd	r24, Z+3	; 0x03
+  5e:	48 2f       	mov	r20, r24
+  60:	41 0f       	add	r20, r17
+  62:	4f 73       	andi	r20, 0x3F	; 63
+  64:	80 7c       	andi	r24, 0xC0	; 192
+  66:	84 2b       	or	r24, r20
+  68:	83 83       	std	Z+3, r24	; 0x03
+  6a:	e8 81       	ld	r30, Y
+  6c:	f9 81       	ldd	r31, Y+1	; 0x01
+  6e:	40 6c       	ori	r20, 0xC0	; 192
+  70:	06 80       	ldd	r0, Z+6	; 0x06
+  72:	f7 81       	ldd	r31, Z+7	; 0x07
+  74:	e0 2d       	mov	r30, r0
+  76:	ce 01       	movw	r24, r28
+  78:	20 e0       	ldi	r18, 0x00	; 0
+  7a:	09 95       	icall
+  7c:	df 91       	pop	r29
+  7e:	cf 91       	pop	r28
+  80:	1f 91       	pop	r17
+  82:	08 95       	ret

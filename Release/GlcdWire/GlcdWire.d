@@ -1,6 +1,6 @@
 GlcdWire/GlcdWire.d GlcdWire/GlcdWire.o: ../GlcdWire/GlcdWire.cpp \
-  /storage/microcontroller/arduino/driver/glcd/GlcdWire/GlcdWire.h \
-  /storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h \
+  /home/dalmir/storage/microcontroller/arduino/driver/glcd/GlcdWire/GlcdWire.h \
+  /home/dalmir/storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/binary.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/WCharacter.h \
@@ -14,9 +14,9 @@ GlcdWire/GlcdWire.d GlcdWire/GlcdWire.o: ../GlcdWire/GlcdWire.cpp \
   /usr/share/arduino/libraries/Wire/Wire.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/Stream.h
 
-/storage/microcontroller/arduino/driver/glcd/GlcdWire/GlcdWire.h:
+/home/dalmir/storage/microcontroller/arduino/driver/glcd/GlcdWire/GlcdWire.h:
 
-/storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h:
+/home/dalmir/storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h:
 
 /usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h:
 

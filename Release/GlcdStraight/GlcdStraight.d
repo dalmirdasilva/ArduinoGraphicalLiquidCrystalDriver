@@ -1,6 +1,6 @@
 GlcdStraight/GlcdStraight.d GlcdStraight/GlcdStraight.o:  \
  ../GlcdStraight/GlcdStraight.cpp ../GlcdStraight/GlcdStraight.h \
-  /storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h \
+  /home/dalmir/storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/binary.h \
   /usr/share/arduino/hardware/arduino/cores/arduino/WCharacter.h \
@@ -14,7 +14,7 @@ GlcdStraight/GlcdStraight.d GlcdStraight/GlcdStraight.o:  \
 
 ../GlcdStraight/GlcdStraight.h:
 
-/storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h:
+/home/dalmir/storage/microcontroller/arduino/driver/glcd/Glcd/Glcd.h:
 
 /usr/share/arduino/hardware/arduino/cores/arduino/Arduino.h:
 
