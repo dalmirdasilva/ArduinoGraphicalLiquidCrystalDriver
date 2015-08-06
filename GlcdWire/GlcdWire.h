@@ -41,7 +41,7 @@ public:
     void init(Mode mode);
     
     /**
-     * Issues a resert int the glcd module
+     * Issues a reset int the glcd module
      * 
      * @return  void
      */

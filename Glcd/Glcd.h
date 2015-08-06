@@ -28,7 +28,7 @@
 #define GLCD_STATUS_RESET_BIT							0x10
 #define GLCD_STATUS_OFF_BIT							    0x20
 #define GLCD_STATUS_BUSY_BIT							0x80
-		                      
+
 #define GLCD_FLAGS_TIME_OUT_ON_WRITE_BIT				0x10
 #define GLCD_FLAGS_PLOT_OUT_OF_RANGE_BIT				0x20
 #define GLCD_FLAGS_READ_IN_ALL_CHIPS_BIT				0x40
@@ -54,7 +54,7 @@ public:
      * x = Don't care
      * </pre>
      */
-	enum Cmd {
+    enum Cmd {
         CMD_DISPLAY_ON_OFF = 0x3e,
         CMD_DISPLAY_START_LINE = 0xc0,
         CMD_SET_PAGE = 0xb8,
@@ -62,50 +62,43 @@ public:
         CMD_DISPLAY_ON_OFF_ON = 0x01
     };
 
-	/**
-	 * initialization mode.
-	 */
+    /**
+     * initialization mode.
+     */
     enum Mode {
-        MODE_OFF = 0,
-        MODE_ON = 1
+        MODE_OFF = 0, MODE_ON = 1
     };
 
-	/**
-	 * Glcd color.
-	 */
+    /**
+     * Glcd color.
+     */
     enum Color {
-        COLOR_BLACK = 0x00,
-        COLOR_WHITE = 0xff
+        COLOR_BLACK = 0x00, COLOR_WHITE = 0xff
     };
 
     enum Chip {
-        CHIP_1 = 0,
-        CHIP_2 = 1,
-        CHIP_ALL = 0xff
+        CHIP_1 = 0, CHIP_2 = 1, CHIP_ALL = 0xff
     };
-	
-	/**
-	 * Rw pin modes.
-	 */
+
+    /**
+     * Rw pin modes.
+     */
     enum Rw {
-        RW_WRITE = 0,
-        RW_READ = 1
+        RW_WRITE = 0, RW_READ = 1
     };
 
-	/**
-	 * Direction of the scroll.
-	 */
+    /**
+     * Direction of the scroll.
+     */
     enum ScrollDirection {
-        SCROLL_UP = 0,
-        SCROLL_DOWN = 1
+        SCROLL_UP = 0, SCROLL_DOWN = 1
     };
 
-	/**
-	 * Rs pin modes.
-	 */
+    /**
+     * Rs pin modes.
+     */
     enum RegisterSelect {
-        RS_COMMAND = 0,
-        RS_DATA = 1
+        RS_COMMAND = 0, RS_DATA = 1
     };
 
     /**
@@ -114,14 +107,14 @@ public:
      * @param mode			On or Off.
      */
     virtual void init(Mode mode) = 0;
-    
+
     /**
      * Issues a resert int the glcd module
      * 
      * @return  void    
      */
     virtual void reset() = 0;
-    
+
     /**
      * Checks if the reseting flags in set on the status.
      * 
@@ -131,7 +124,7 @@ public:
     bool isReseting(Chip chip) {
         return ((status(chip) & GLCD_STATUS_RESET_BIT) != 0);
     }
-    
+
     /**
      * Checks if the off flags in set on the status.
      * 
@@ -141,7 +134,7 @@ public:
     bool isOff(Chip chip) {
         return ((status(chip) & GLCD_STATUS_OFF_BIT) != 1);
     }
-    
+
     /**
      * Checks if the busy flags in set on the status.
      * 
@@ -151,7 +144,7 @@ public:
     bool isBusy(Chip chip) {
         return ((status(chip) & GLCD_STATUS_BUSY_BIT) != 0);
     }
-    
+
     /**
      * Fill all the buffer with the given pattern
      * 
@@ -168,7 +161,7 @@ public:
      * @return bool
      */
     bool plot(unsigned char x, unsigned char y, Color color);
-    
+
     /**
      * Writes a entire byte at the page and line
      * 
@@ -177,7 +170,8 @@ public:
      * @param chunk
      * @return 
      */
-    bool streak(unsigned char x, unsigned char page, unsigned char streak);
+    bool streak(unsigned char x, unsigned char page,
+            unsigned char streak);
 
     /**
      * Scrolls the glcd to the given line
@@ -198,7 +192,8 @@ public:
      * @param lines         How many lines will scroll.
      * @return void
      */
-    void scroll(Chip chip, ScrollDirection direction, unsigned char lines);
+    void scroll(Chip chip, ScrollDirection direction,
+            unsigned char lines);
 
     /**
      * Gets the status of the glcd.
@@ -207,8 +202,8 @@ public:
      * @return  			Byte representing the status info.
      */
     unsigned char inline status(Chip chip) {
-		return read(chip, Glcd::RS_COMMAND);
-	}
+        return read(chip, Glcd::RS_COMMAND);
+    }
 
     /**
      * Gets the write timeout flag.
@@ -247,23 +242,23 @@ public:
     bool inline isOutOfRange(unsigned char x, unsigned char y) {
         return (x > GLCD_WIDTH || y > GLCD_HEIGHT);
     }
-    
+
     /**
      * Gets the glcd width.
      * 
      * @return 
      */
     unsigned char inline getWidth() {
-       return  GLCD_WIDTH;
+        return GLCD_WIDTH;
     }
-    
+
     /**
      * Gets the glcd height.
      * 
      * @return 
      */
     unsigned char inline getHeight() {
-       return  GLCD_HEIGHT;
+        return GLCD_HEIGHT;
     }
 
     /**
@@ -272,7 +267,7 @@ public:
     void inline clear() {
         screen(0x00);
     }
-    
+
 protected:
 
     /**
@@ -288,12 +283,12 @@ protected:
      *   |________ Unused 
      * </pre>
      */
-    unsigned char flags; 
+    unsigned char flags;
 
     struct {
-        unsigned char scrollTo : 6;
+        unsigned char scrollTo :6;
     } startLine[GLCD_CHIPS];
-    
+
     /**
      * Protected constructor.
      */
@@ -312,7 +307,8 @@ protected:
      * @param rs                The register select.
      * @return 
      */
-    virtual bool write(Chip chip, unsigned char b, RegisterSelect rs) = 0;
+    virtual bool write(Chip chip, unsigned char b,
+            RegisterSelect rs) = 0;
 
     /**
      * Reads a byte from the glcd.
@@ -330,7 +326,7 @@ protected:
      * @return  
      */
     unsigned char inline readData(Chip chip) {
-		return read(chip, Glcd::RS_DATA);
+        return read(chip, Glcd::RS_DATA);
     }
 
     /**
@@ -341,8 +337,8 @@ protected:
      * @return
      */
     bool inline writeData(Chip chip, unsigned char b) {
-		return write(chip, b, Glcd::RS_DATA);
-	}
+        return write(chip, b, Glcd::RS_DATA);
+    }
 
     /**
      * Sends a command to the glcd.
@@ -352,9 +348,9 @@ protected:
      * @return
      */
     bool inline command(Chip chip, unsigned char cmd) {
-		return write(chip, cmd, Glcd::RS_COMMAND);
+        return write(chip, cmd, Glcd::RS_COMMAND);
     }
-    
+
     /**
      * Gets the chip from a point.
      * 
@@ -362,8 +358,10 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getChipFromPoint(unsigned char x, unsigned char y) {
-        return ((y / GLCD_CHIP_HEIGHT) * GLCD_HORIZONTAL_CHIPS) + (x / GLCD_CHIP_WIDTH);
+    unsigned char inline getChipFromPoint(unsigned char x,
+            unsigned char y) {
+        return ((y / GLCD_CHIP_HEIGHT) * GLCD_HORIZONTAL_CHIPS)
+                + (x / GLCD_CHIP_WIDTH);
     }
 
     /**
@@ -373,7 +371,8 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getPageFromPoint(unsigned char x, unsigned char y) {
+    unsigned char inline getPageFromPoint(unsigned char x,
+            unsigned char y) {
         return (y % GLCD_CHIP_HEIGHT) / 8;
     }
 
@@ -384,7 +383,8 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getLineFromPoint(unsigned char x, unsigned char y) {
+    unsigned char inline getLineFromPoint(unsigned char x,
+            unsigned char y) {
         return x % GLCD_CHIP_WIDTH;
     }
 
@@ -395,7 +395,8 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getBitFromPoint(unsigned char x, unsigned char y) {
+    unsigned char inline getBitFromPoint(unsigned char x,
+            unsigned char y) {
         return y % 8;
     }
 
@@ -408,7 +409,8 @@ protected:
      * @param data 				The data to be sent.
      * @return
      */
-    bool writeDataAt(Chip chip, unsigned char page, unsigned char line, unsigned char byte);
+    bool writeDataAt(Chip chip, unsigned char page, unsigned char line,
+            unsigned char byte);
 
     /**
      * Gets a byte from the glcd.
@@ -418,7 +420,8 @@ protected:
      * @param page 				The line selector.
      * @return
      */
-    unsigned char readDataAt(Chip chip, unsigned char page, unsigned char line);
+    unsigned char readDataAt(Chip chip, unsigned char page,
+            unsigned char line);
 
     /**
      * Sets the write timeout flag.
