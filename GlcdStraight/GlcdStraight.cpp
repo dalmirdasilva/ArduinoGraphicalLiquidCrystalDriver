@@ -89,8 +89,6 @@ bool GlcdStraight::write(Chip chip, unsigned char b, RegisterSelect rs) {
             return 0;
         }
     }
-#else
-#warning "Warning: You aren't using busy check on write."
 #endif
 
     switchRegisterSelectTo(rs);
@@ -121,7 +119,8 @@ unsigned char GlcdStraight::read(Chip chip, RegisterSelect rs) {
     // you can make another decision.
     if (chip == CHIP_ALL) {
         setReadInAllChipsFlag();
-        chip == CHIP_1;
+        // BUG? was ==
+        chip = CHIP_1;
     }
 
     busInputDirection();
