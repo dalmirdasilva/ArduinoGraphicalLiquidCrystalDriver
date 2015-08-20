@@ -1,7 +1,7 @@
 /**
- * Arduino - Glcd driver
+ * Arduino Graphical Liquid Crystal Driver
  * 
- * GlcdWire.h
+ * GraphicalLiquidCrystalWire.h
  * 
  * The header file for glcd driver, wicth implements the driver base
  * using i2c with a PIC microcontroller.
@@ -9,39 +9,40 @@
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GLCD_WIRE_H__
-#define __ARDUINO_DRIVER_GLCD_WIRE_H__ 1
+#ifndef __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_WIRE_H__
+#define __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_WIRE_H__ 1
 
-#include <Glcd.h>
+#include <GraphicalLiquidCrystal.h>
 
-class GlcdWire : public Glcd {
+class GraphicalLiquidCrystalWire: public GraphicalLiquidCrystal {
+
 protected:
 
-	unsigned char device;
-    
+    unsigned char device;
+
     struct {
         unsigned char page;
         unsigned char line;
-    } chipInfo[GLCD_CHIPS];
-	
+    } chipInfo[GRAPHICAL_LIQUID_CRYSTAL_CHIPS];
+
 public:
-	
+
     /**
      * Public constructor.
      * 
      * @param address       The interface address.
      */
-	GlcdWire(unsigned char device);
-    
+    GraphicalLiquidCrystalWire(unsigned char device);
+
     /**
-     * Initializes the glcd.
+     * Initializes the module.
      * 
      * @param mode			On or Off.
      */
     void init(Mode mode);
-    
+
     /**
-     * Issues a reset int the glcd module
+     * Issues a reset to the module.
      * 
      * @return  void
      */
@@ -65,11 +66,11 @@ public:
      * @return 
      */
     unsigned char read(Chip chip, RegisterSelect rs);
-    
+
 private:
-    
+
     /**
-     * Makes the header of the pic i2c communication.
+     * Makes the header of the i2c communication.
      * 
      * <pre>
      * header: 0b00000000
@@ -91,5 +92,5 @@ private:
     unsigned char makeHeader(Chip chip, RegisterSelect rs, Rw rw);
 };
 
-#endif /* __ARDUINO_DRIVER_GLCD_WIRE_H__ */
+#endif /* __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_WIRE_H__ */
 

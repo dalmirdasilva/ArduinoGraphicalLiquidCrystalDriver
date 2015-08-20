@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For GlcdStraight
+# Syntax Coloring Map For GraphicLiquidCrystalStraight
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-GlcdStraight	KEYWORD1
+GraphicLiquidCrystalStraight	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

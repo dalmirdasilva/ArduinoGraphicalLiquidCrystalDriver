@@ -1,39 +1,38 @@
 /**
- * Arduino - Glcd driver
+ * Arduino Graphical Liquid Crystal Driver
  * 
- * Glcd.h
- * 
- * The glcd driver functions
+ * GraphicalLiquidCrystal.h
  * 
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GLCD_H__
-#define __ARDUINO_DRIVER_GLCD_H__ 1
+#ifndef __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_H__
+#define __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_H__ 1
 
 #include <Arduino.h>
 
-#define GLCD_CHIP_WIDTH                                 64
-#define GLCD_CHIP_HEIGHT                                64
-#define GLCD_HORIZONTAL_CHIPS                           2
-#define GLCD_VERTICAL_CHIPS                             1
-#define GLCD_CHIPS                                      (GLCD_HORIZONTAL_CHIPS * GLCD_VERTICAL_CHIPS)
-#define GLCD_WIDTH                                      (GLCD_HORIZONTAL_CHIPS * GLCD_CHIP_WIDTH)
-#define GLCD_HEIGHT                                     (GLCD_VERTICAL_CHIPS * GLCD_CHIP_HEIGHT)
-#define GLCD_CHIP_AREA                                  (GLCD_CHIP_WIDTH * GLCD_CHIP_HEIGHT)
-#define GLCD_AREA                                       (GLCD_CHIP_AREA * GLCD_CHIPS)
-#define GLCD_CHIP_PAGES                                 (GLCD_CHIP_HEIGHT / 8)
-#define GLCD_PAGE_LINES                                 (GLCD_CHIP_WIDTH)
+#define GRAPHICAL_LIQUID_CRYSTAL_CHIP_WIDTH                                 64
+#define GRAPHICAL_LIQUID_CRYSTAL_CHIP_HEIGHT                                64
+#define GRAPHICAL_LIQUID_CRYSTAL_HORIZONTAL_CHIPS                           2
+#define GRAPHICAL_LIQUID_CRYSTAL_VERTICAL_CHIPS                             1
+#define GRAPHICAL_LIQUID_CRYSTAL_CHIPS                                      (GRAPHICAL_LIQUID_CRYSTAL_HORIZONTAL_CHIPS * GRAPHICAL_LIQUID_CRYSTAL_VERTICAL_CHIPS)
+#define GRAPHICAL_LIQUID_CRYSTAL_WIDTH                                      (GRAPHICAL_LIQUID_CRYSTAL_HORIZONTAL_CHIPS * GRAPHICAL_LIQUID_CRYSTAL_CHIP_WIDTH)
+#define GRAPHICAL_LIQUID_CRYSTAL_HEIGHT                                     (GRAPHICAL_LIQUID_CRYSTAL_VERTICAL_CHIPS * GRAPHICAL_LIQUID_CRYSTAL_CHIP_HEIGHT)
+#define GRAPHICAL_LIQUID_CRYSTAL_CHIP_AREA                                  (GRAPHICAL_LIQUID_CRYSTAL_CHIP_WIDTH * GRAPHICAL_LIQUID_CRYSTAL_CHIP_HEIGHT)
+#define GRAPHICAL_LIQUID_CRYSTAL_AREA                                       (GRAPHICAL_LIQUID_CRYSTAL_CHIP_AREA * GRAPHICAL_LIQUID_CRYSTAL_CHIPS)
+#define GRAPHICAL_LIQUID_CRYSTAL_CHIP_PAGES                                 (GRAPHICAL_LIQUID_CRYSTAL_CHIP_HEIGHT / 8)
+#define GRAPHICAL_LIQUID_CRYSTAL_PAGE_LINES                                 (GRAPHICAL_LIQUID_CRYSTAL_CHIP_WIDTH)
 
-#define GLCD_STATUS_RESET_BIT							0x10
-#define GLCD_STATUS_OFF_BIT							    0x20
-#define GLCD_STATUS_BUSY_BIT							0x80
+#define GRAPHICAL_LIQUID_CRYSTAL_STATUS_RESET_BIT							0x10
+#define GRAPHICAL_LIQUID_CRYSTAL_STATUS_OFF_BIT							    0x20
+#define GRAPHICAL_LIQUID_CRYSTAL_STATUS_BUSY_BIT							0x80
 
-#define GLCD_FLAGS_TIME_OUT_ON_WRITE_BIT				0x10
-#define GLCD_FLAGS_PLOT_OUT_OF_RANGE_BIT				0x20
-#define GLCD_FLAGS_READ_IN_ALL_CHIPS_BIT				0x40
+#define GRAPHICAL_LIQUID_CRYSTAL_FLAGS_TIME_OUT_ON_WRITE_BIT				0x10
+#define GRAPHICAL_LIQUID_CRYSTAL_FLAGS_PLOT_OUT_OF_RANGE_BIT				0x20
+#define GRAPHICAL_LIQUID_CRYSTAL_FLAGS_READ_IN_ALL_CHIPS_BIT				0x40
 
-class Glcd {
+class GraphicalLiquidCrystal {
+
 public:
 
     /**
@@ -66,39 +65,46 @@ public:
      * initialization mode.
      */
     enum Mode {
-        MODE_OFF = 0, MODE_ON = 1
+        MODE_OFF = 0,
+        MODE_ON = 1
     };
 
     /**
-     * Glcd color.
+     * GraphicalLiquidCrystal color.
      */
     enum Color {
-        COLOR_BLACK = 0x00, COLOR_WHITE = 0xff
+        COLOR_BLACK = 0x00,
+        COLOR_WHITE = 0xff
     };
 
     enum Chip {
-        CHIP_1 = 0, CHIP_2 = 1, CHIP_ALL = 0xff
+        CHIP_1 = 0,
+        CHIP_2 = 1,
+        CHIP_ALL = 0xff
     };
 
     /**
      * Rw pin modes.
      */
     enum Rw {
-        RW_WRITE = 0, RW_READ = 1
+        RW_WRITE = 0,
+        RW_READ = 1
     };
 
     /**
      * Direction of the scroll.
      */
     enum ScrollDirection {
-        SCROLL_UP = 0, SCROLL_DOWN = 1
+        SCROLL_UP = 0,
+        SCROLL_DOWN = 1
     };
 
     /**
      * Rs pin modes.
      */
     enum RegisterSelect {
-        RS_COMMAND = 0, RS_DATA = 1
+        RS_COMMAND = 0,
+        RS_DATA = 1
     };
 
     /**
@@ -122,7 +128,7 @@ public:
      * @return 
      */
     bool isReseting(Chip chip) {
-        return ((status(chip) & GLCD_STATUS_RESET_BIT) != 0);
+        return ((status(chip) & GRAPHICAL_LIQUID_CRYSTAL_STATUS_RESET_BIT) != 0);
     }
 
     /**
@@ -132,7 +138,7 @@ public:
      * @return 
      */
     bool isOff(Chip chip) {
-        return ((status(chip) & GLCD_STATUS_OFF_BIT) != 1);
+        return ((status(chip) & GRAPHICAL_LIQUID_CRYSTAL_STATUS_OFF_BIT) != 1);
     }
 
     /**
@@ -142,7 +148,7 @@ public:
      * @return 
      */
     bool isBusy(Chip chip) {
-        return ((status(chip) & GLCD_STATUS_BUSY_BIT) != 0);
+        return ((status(chip) & GRAPHICAL_LIQUID_CRYSTAL_STATUS_BUSY_BIT) != 0);
     }
 
     /**
@@ -170,8 +176,7 @@ public:
      * @param chunk
      * @return 
      */
-    bool streak(unsigned char x, unsigned char page,
-            unsigned char streak);
+    bool streak(unsigned char x, unsigned char page, unsigned char streak);
 
     /**
      * Scrolls the glcd to the given line
@@ -181,7 +186,7 @@ public:
      * @return  bool
      */
     void scrollTo(Chip chip, unsigned char line) {
-        command(chip, Glcd::CMD_DISPLAY_START_LINE | (line & 0x3f));
+        command(chip, GraphicalLiquidCrystal::CMD_DISPLAY_START_LINE | (line & 0x3f));
     }
 
     /**
@@ -192,8 +197,7 @@ public:
      * @param lines         How many lines will scroll.
      * @return void
      */
-    void scroll(Chip chip, ScrollDirection direction,
-            unsigned char lines);
+    void scroll(Chip chip, ScrollDirection direction, unsigned char lines);
 
     /**
      * Gets the status of the glcd.
@@ -202,7 +206,7 @@ public:
      * @return  			Byte representing the status info.
      */
     unsigned char inline status(Chip chip) {
-        return read(chip, Glcd::RS_COMMAND);
+        return read(chip, GraphicalLiquidCrystal::RS_COMMAND);
     }
 
     /**
@@ -211,7 +215,7 @@ public:
      * @return bool
      */
     bool inline getWriteTimeoutFlag() {
-        return ((flags & GLCD_FLAGS_TIME_OUT_ON_WRITE_BIT) != 0);
+        return ((flags & GRAPHICAL_LIQUID_CRYSTAL_FLAGS_TIME_OUT_ON_WRITE_BIT) != 0);
     }
 
     /**
@@ -220,7 +224,7 @@ public:
      * @return bool
      */
     bool inline getOutOfRangeFlag() {
-        return ((flags & GLCD_FLAGS_TIME_OUT_ON_WRITE_BIT) != 0);
+        return ((flags & GRAPHICAL_LIQUID_CRYSTAL_FLAGS_TIME_OUT_ON_WRITE_BIT) != 0);
     }
 
     /**
@@ -229,7 +233,7 @@ public:
      * @return bool
      */
     bool inline getReadInAllChipsFlag() {
-        return ((flags & GLCD_FLAGS_READ_IN_ALL_CHIPS_BIT) != 0);
+        return ((flags & GRAPHICAL_LIQUID_CRYSTAL_FLAGS_READ_IN_ALL_CHIPS_BIT) != 0);
     }
 
     /**
@@ -240,7 +244,7 @@ public:
      * @return 
      */
     bool inline isOutOfRange(unsigned char x, unsigned char y) {
-        return (x > GLCD_WIDTH || y > GLCD_HEIGHT);
+        return (x > GRAPHICAL_LIQUID_CRYSTAL_WIDTH || y > GRAPHICAL_LIQUID_CRYSTAL_HEIGHT);
     }
 
     /**
@@ -249,7 +253,7 @@ public:
      * @return 
      */
     unsigned char inline getWidth() {
-        return GLCD_WIDTH;
+        return GRAPHICAL_LIQUID_CRYSTAL_WIDTH;
     }
 
     /**
@@ -258,7 +262,7 @@ public:
      * @return 
      */
     unsigned char inline getHeight() {
-        return GLCD_HEIGHT;
+        return GRAPHICAL_LIQUID_CRYSTAL_HEIGHT;
     }
 
     /**
@@ -287,12 +291,17 @@ protected:
 
     struct {
         unsigned char scrollTo :6;
-    } startLine[GLCD_CHIPS];
+    } startLine[GRAPHICAL_LIQUID_CRYSTAL_CHIPS];
 
     /**
      * Protected constructor.
      */
-    Glcd();
+    GraphicalLiquidCrystal();
+
+    /**
+     * Protected virtual destructor.
+     */
+    virtual ~GraphicalLiquidCrystal();
 
     /**
      * Initializes the IO.
@@ -307,8 +316,7 @@ protected:
      * @param rs                The register select.
      * @return 
      */
-    virtual bool write(Chip chip, unsigned char b,
-            RegisterSelect rs) = 0;
+    virtual bool write(Chip chip, unsigned char b, RegisterSelect rs) = 0;
 
     /**
      * Reads a byte from the glcd.
@@ -326,7 +334,7 @@ protected:
      * @return  
      */
     unsigned char inline readData(Chip chip) {
-        return read(chip, Glcd::RS_DATA);
+        return read(chip, GraphicalLiquidCrystal::RS_DATA);
     }
 
     /**
@@ -337,7 +345,7 @@ protected:
      * @return
      */
     bool inline writeData(Chip chip, unsigned char b) {
-        return write(chip, b, Glcd::RS_DATA);
+        return write(chip, b, GraphicalLiquidCrystal::RS_DATA);
     }
 
     /**
@@ -348,7 +356,7 @@ protected:
      * @return
      */
     bool inline command(Chip chip, unsigned char cmd) {
-        return write(chip, cmd, Glcd::RS_COMMAND);
+        return write(chip, cmd, GraphicalLiquidCrystal::RS_COMMAND);
     }
 
     /**
@@ -358,10 +366,8 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getChipFromPoint(unsigned char x,
-            unsigned char y) {
-        return ((y / GLCD_CHIP_HEIGHT) * GLCD_HORIZONTAL_CHIPS)
-                + (x / GLCD_CHIP_WIDTH);
+    unsigned char inline getChipFromPoint(unsigned char x, unsigned char y) {
+        return ((y / GRAPHICAL_LIQUID_CRYSTAL_CHIP_HEIGHT) * GRAPHICAL_LIQUID_CRYSTAL_HORIZONTAL_CHIPS) + (x / GRAPHICAL_LIQUID_CRYSTAL_CHIP_WIDTH);
     }
 
     /**
@@ -371,9 +377,8 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getPageFromPoint(unsigned char x,
-            unsigned char y) {
-        return (y % GLCD_CHIP_HEIGHT) / 8;
+    unsigned char inline getPageFromPoint(unsigned char x, unsigned char y) {
+        return (y % GRAPHICAL_LIQUID_CRYSTAL_CHIP_HEIGHT) / 8;
     }
 
     /**
@@ -383,9 +388,8 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getLineFromPoint(unsigned char x,
-            unsigned char y) {
-        return x % GLCD_CHIP_WIDTH;
+    unsigned char inline getLineFromPoint(unsigned char x, unsigned char y) {
+        return x % GRAPHICAL_LIQUID_CRYSTAL_CHIP_WIDTH;
     }
 
     /**
@@ -395,8 +399,7 @@ protected:
      * @param y			The Y position on the screen.
      * @return 
      */
-    unsigned char inline getBitFromPoint(unsigned char x,
-            unsigned char y) {
+    unsigned char inline getBitFromPoint(unsigned char x, unsigned char y) {
         return y % 8;
     }
 
@@ -409,8 +412,7 @@ protected:
      * @param data 				The data to be sent.
      * @return
      */
-    bool writeDataAt(Chip chip, unsigned char page, unsigned char line,
-            unsigned char byte);
+    bool writeDataAt(Chip chip, unsigned char page, unsigned char line, unsigned char byte);
 
     /**
      * Gets a byte from the glcd.
@@ -420,50 +422,49 @@ protected:
      * @param page 				The line selector.
      * @return
      */
-    unsigned char readDataAt(Chip chip, unsigned char page,
-            unsigned char line);
+    unsigned char readDataAt(Chip chip, unsigned char page, unsigned char line);
 
     /**
      * Sets the write timeout flag.
      */
     void inline setWriteTimeoutFlag() {
-        flags |= GLCD_FLAGS_TIME_OUT_ON_WRITE_BIT;
+        flags |= GRAPHICAL_LIQUID_CRYSTAL_FLAGS_TIME_OUT_ON_WRITE_BIT;
     }
 
     /**
      * Clears the write timeout flag.
      */
     void inline clrWriteTimeoutFlag() {
-        flags &= ~(GLCD_FLAGS_TIME_OUT_ON_WRITE_BIT);
+        flags &= ~(GRAPHICAL_LIQUID_CRYSTAL_FLAGS_TIME_OUT_ON_WRITE_BIT);
     }
 
     /**
      * Sets the out of range flag.
      */
     void inline setOutOfRangeFlag() {
-        flags |= GLCD_FLAGS_PLOT_OUT_OF_RANGE_BIT;
+        flags |= GRAPHICAL_LIQUID_CRYSTAL_FLAGS_PLOT_OUT_OF_RANGE_BIT;
     }
 
     /**
      * Clears the out of range flag.
      */
     void inline clrOutOfRangeFlag() {
-        flags &= ~(GLCD_FLAGS_PLOT_OUT_OF_RANGE_BIT);
+        flags &= ~(GRAPHICAL_LIQUID_CRYSTAL_FLAGS_PLOT_OUT_OF_RANGE_BIT);
     }
 
     /**
      * Sets the read in all chip flag.
      */
     void inline setReadInAllChipsFlag() {
-        flags |= GLCD_FLAGS_READ_IN_ALL_CHIPS_BIT;
+        flags |= GRAPHICAL_LIQUID_CRYSTAL_FLAGS_READ_IN_ALL_CHIPS_BIT;
     }
 
     /**
      * Clears the read in all chip flag.
      */
     void inline clrReadInAllChipsFlag() {
-        flags &= ~(GLCD_FLAGS_READ_IN_ALL_CHIPS_BIT);
+        flags &= ~(GRAPHICAL_LIQUID_CRYSTAL_FLAGS_READ_IN_ALL_CHIPS_BIT);
     }
 };
 
-#endif /* __ARDUINO_DRIVER_GLCD_H__ */
+#endif /* __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_H__ */

@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For GlcdWire
+# Syntax Coloring Map For GraphicLiquidCrystalWire
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-GlcdWire	KEYWORD1
+GraphicLiquidCrystalWire	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

@@ -1,5 +1,7 @@
 ARDUINO_LIB_PATH=/usr/share/arduino/libraries
-LIB_LIST=Glcd GlcdStraight GlcdWire
+LIB_LIST=GraphicLiquidCrystal \
+	GraphicLiquidCrystalWire \
+	GraphicLiquidCrystalStraight
 SOURCE_PATH=`pwd`
 
 all: 

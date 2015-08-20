@@ -1,7 +1,7 @@
 /**
- * Arduino - Glcd driver
+ * Arduino Graphical Liquid Crystal Driver
  * 
- * GlcdStraight.cpp
+ * GraphicalLiquidCrystalStraight.cpp
  * 
  * The glcd driver functions for glcd driver, wicth implements the driver base
  * with direct access, witout buffer.
@@ -9,20 +9,18 @@
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GLCD_STRAIGHT_CPP__
-#define __ARDUINO_DRIVER_GLCD_STRAIGHT_CPP__ 1
+#include <GraphicalLiquidCrystalStraight.h>
 
-#include "GlcdStraight.h"
-
-GlcdStraight::GlcdStraight() : Glcd() {
+GraphicalLiquidCrystalStraight::GraphicalLiquidCrystalStraight()
+        : GraphicalLiquidCrystal() {
 }
 
-void GlcdStraight::init(Mode mode) {
+void GraphicalLiquidCrystalStraight::init(Mode mode) {
     unsigned char i = 0;
     initIo();
     reset();
-	clrEnablePin();
-    for (i = 0; i < GLCD_CHIPS; i++) {
+    clrEnablePin();
+    for (i = 0; i < GRAPHICAL_LIQUID_CRYSTAL_CHIPS; i++) {
         startLine[i].scrollTo = 0;
     }
     scrollTo(CHIP_ALL, 0);
@@ -35,28 +33,28 @@ void GlcdStraight::init(Mode mode) {
     }
 }
 
-void GlcdStraight::initIo() {
-    pinMode(GLCD_CS1_PIN, OUTPUT);
-    pinMode(GLCD_CS2_PIN, OUTPUT);
-    pinMode(GLCD_RS_PIN, OUTPUT);
-    pinMode(GLCD_RW_PIN, OUTPUT);
-    pinMode(GLCD_EN_PIN, OUTPUT);
+void GraphicalLiquidCrystalStraight::initIo() {
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_CS1_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_CS2_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_RS_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_RW_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_EN_PIN, OUTPUT);
 
-#ifdef GLCD_USING_RESET
-    pinMode(GLCD_RESET_PIN, OUTPUT);
+#ifdef GRAPHICAL_LIQUID_CRYSTAL_USING_RESET
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_RESET_PIN, OUTPUT);
 #endif
 }
 
-void GlcdStraight::reset() {
-#ifdef GLCD_USING_RESET
-    digitalWrite(GLCD_RESET_PIN, LOW);
-    delayMicroseconds(GLCD_DELAY_RESET_US);
-    digitalWrite(GLCD_RESET_PIN, HIGH);
-    while (isReseting(Glcd::CHIP_1));
+void GraphicalLiquidCrystalStraight::reset() {
+#ifdef GRAPHICAL_LIQUID_CRYSTAL_USING_RESET
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_RESET_PIN, LOW);
+    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_DELAY_RESET_US);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_RESET_PIN, HIGH);
+    while (isReseting(GraphicalLiquidCrystal::CHIP_1));
 #endif
 }
 
-void GlcdStraight::switchRegisterSelectTo(RegisterSelect rs) {
+void GraphicalLiquidCrystalStraight::switchRegisterSelectTo(RegisterSelect rs) {
     if (rs == RS_COMMAND) {
         switchRegisterSelectToCommand();
     } else {
@@ -64,25 +62,25 @@ void GlcdStraight::switchRegisterSelectTo(RegisterSelect rs) {
     }
 }
 
-void GlcdStraight::switchChipTo(Chip chip) {
+void GraphicalLiquidCrystalStraight::switchChipTo(Chip chip) {
     if (chip == CHIP_ALL) {
-        digitalWrite(GLCD_CS1_PIN, HIGH);
-        digitalWrite(GLCD_CS2_PIN, HIGH);
+        digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_CS1_PIN, HIGH);
+        digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_CS2_PIN, HIGH);
     } else {
         if (chip == CHIP_1) {
-            digitalWrite(GLCD_CS1_PIN, HIGH);
-            digitalWrite(GLCD_CS2_PIN, LOW);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_CS1_PIN, HIGH);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_CS2_PIN, LOW);
         } else {
-            digitalWrite(GLCD_CS1_PIN, LOW);
-            digitalWrite(GLCD_CS2_PIN, HIGH);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_CS1_PIN, LOW);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_CS2_PIN, HIGH);
         }
     }
 }
 
-bool GlcdStraight::write(Chip chip, unsigned char b, RegisterSelect rs) {
+bool GraphicalLiquidCrystalStraight::write(Chip chip, unsigned char b, RegisterSelect rs) {
 
-#if GLCD_CHECK_FOR_BUSY_ON_WRITE == 1
-    unsigned char attempts = GLCD_DEFAULT_ATTEMPTS_ON_BUSY;
+#if GRAPHICAL_LIQUID_CRYSTAL_CHECK_FOR_BUSY_ON_WRITE == 1
+    unsigned char attempts = GRAPHICAL_LIQUID_CRYSTAL_DEFAULT_ATTEMPTS_ON_BUSY;
     while (isBusy(chip) && attempts--) {
         if (attempts == 0) {
             setWriteTimeoutFlag();
@@ -95,17 +93,17 @@ bool GlcdStraight::write(Chip chip, unsigned char b, RegisterSelect rs) {
     switchRwToWrite();
     switchChipTo(chip);
     setEnablePin();
-    delayMicroseconds(GLCD_DELAY_TDSU_US);
+    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_DELAY_TDSU_US);
     busOutputDirection();
     writeToBus(b);
-    delayMicroseconds(GLCD_DELAY_TDHW_US);
+    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_DELAY_TDHW_US);
     clrEnablePin();
     disableChips();
 
     return 1;
 }
 
-unsigned char GlcdStraight::read(Chip chip, RegisterSelect rs) {
+unsigned char GraphicalLiquidCrystalStraight::read(Chip chip, RegisterSelect rs) {
 
     unsigned char b = 0;
 
@@ -138,16 +136,15 @@ unsigned char GlcdStraight::read(Chip chip, RegisterSelect rs) {
     if (rs == RS_DATA) {
         howManyReads = 2;
     }
-    
+
     for (i = 0; i < howManyReads; i++) {
         setEnablePin();
-        delayMicroseconds(GLCD_DELAY_TD_US);
+        delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_DELAY_TD_US);
         b = readFromBus();
         clrEnablePin();
     }
-    
+
     disableChips();
 
     return b;
 }
-#endif /* __ARDUINO_DRIVER_GLCD_STRAIGHT_CPP__ */

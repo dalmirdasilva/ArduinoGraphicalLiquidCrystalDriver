@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For Glcd
+# Syntax Coloring Map For GraphicLiquidCrystal
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-Glcd	KEYWORD1
+GraphicLiquidCrystal	KEYWORD1
 RW	KEYWORD1
 Rs	KEYWORD1
 Chip	KEYWORD1

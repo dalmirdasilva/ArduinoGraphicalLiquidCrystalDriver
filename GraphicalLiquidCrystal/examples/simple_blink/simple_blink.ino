@@ -1,5 +1,5 @@
-#include <Glcd.h>
-#include <GlcdStraight.h>
+#include <GraphicLiquidCrystal.h>
+#include <GraphicLiquidCrystalStraight.h>
 
 void setup() {
   unsigned long start;
@@ -9,9 +9,9 @@ void setup() {
   while (!Serial.available());
   while (Serial.read() != 'y');
 
-  GlcdStraight glcdDriver;
+  GraphicLiquidCrystalStraight glcdDriver;
     
-  glcdDriver.init(Glcd::MODE_ON);
+  glcdDriver.init(GraphicLiquidCrystal::MODE_ON);
   glcdDriver.screen(0x00);
 
   start = millis();
