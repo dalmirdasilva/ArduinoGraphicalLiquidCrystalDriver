@@ -1,7 +1,7 @@
-ARDUINO_LIB_PATH=/usr/share/arduino/libraries
-LIB_LIST=GraphicLiquidCrystal \
-	GraphicLiquidCrystalWire \
-	GraphicLiquidCrystalStraight
+ARDUINO_LIB_PATH=/opt/arduino-1.6.5/libraries
+LIB_LIST=GraphicalLiquidCrystal \
+	GraphicalLiquidCrystalKs0108\
+	GraphicalLiquidCrystalNokia5110
 SOURCE_PATH=`pwd`
 
 all: 
