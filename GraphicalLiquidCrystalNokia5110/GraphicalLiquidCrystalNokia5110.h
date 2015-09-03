@@ -77,6 +77,8 @@ class GraphicalLiquidCrystalNokia5110: public GraphicalLiquidCrystal {
 
 public:
 
+    unsigned char currentScroll;
+
     /**
      * <pre>
      * Command                   Binary                             Hex
@@ -193,12 +195,12 @@ public:
     /**
      * Page from y
      */
-    unsigned char inline getPageFromPoint(unsigned char x, unsigned char y);
+    inline unsigned char getPageFromPoint(unsigned char x, unsigned char y);
 
     /**
      * Bit from y
      */
-    unsigned char getBitFromPoint(unsigned char x, unsigned char y);
+    inline unsigned char getBitFromPoint(unsigned char x, unsigned char y);
 
     /**
      * Turns a pixel on or off.
@@ -251,17 +253,17 @@ protected:
      * @param b                 The byte to be written.
      * @return
      */
-    void send(unsigned char b);
+    inline void send(unsigned char b);
 
     /**
      * Switch the register select pin to data mode.
      */
-    void inline switchRegisterSelectToData();
+    inline void switchRegisterSelectToData();
 
     /**
      * Switch the register select pin to command mode.
      */
-    void inline switchRegisterSelectToCommand();
+    inline void switchRegisterSelectToCommand();
 };
 
 #endif /* __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_H__ */

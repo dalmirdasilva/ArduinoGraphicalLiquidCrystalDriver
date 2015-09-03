@@ -15,6 +15,9 @@ GraphicalLiquidCrystalKs0108::GraphicalLiquidCrystalKs0108()
         : GraphicalLiquidCrystal(0x80, 0x40) {
 }
 
+GraphicalLiquidCrystalKs0108::~GraphicalLiquidCrystalKs0108() {
+}
+
 void GraphicalLiquidCrystalKs0108::screen(unsigned char pattern) {
     unsigned char page, line;
     for (page = 0; page < GRAPHICAL_LIQUID_CRYSTAL_KS0108_CHIP_PAGES; page++) {
@@ -86,22 +89,22 @@ void GraphicalLiquidCrystalKs0108::init(Mode mode) {
 }
 
 void GraphicalLiquidCrystalKs0108::initIo() {
-    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS1_PIN, OUTPUT);
-    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS2_PIN, OUTPUT);
-    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RS_PIN, OUTPUT);
-    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RW_PIN, OUTPUT);
-    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_EN_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS1_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS2_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RS_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RW_PIN, OUTPUT);
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_EN_PIN, OUTPUT);
 
-#ifdef GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_USING_RESET
-    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RESET_PIN, OUTPUT);
+#ifdef GRAPHICAL_LIQUID_CRYSTAL_KS0108_USING_RESET
+    pinMode(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RESET_PIN, OUTPUT);
 #endif
 }
 
 void GraphicalLiquidCrystalKs0108::reset() {
-#ifdef GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_USING_RESET
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RESET_PIN, LOW);
-    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_DELAY_RESET_US);
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RESET_PIN, HIGH);
+#ifdef GRAPHICAL_LIQUID_CRYSTAL_KS0108_USING_RESET
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RESET_PIN, LOW);
+    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_DELAY_RESET_US);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RESET_PIN, HIGH);
     while (isReseting(CHIP_FIST))
         ;
 #endif
@@ -117,22 +120,22 @@ void GraphicalLiquidCrystalKs0108::switchRegisterSelectTo(RegisterSelect rs) {
 
 void GraphicalLiquidCrystalKs0108::switchChipTo(Chip chip) {
     if (chip == CHIP_ALL) {
-        digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS1_PIN, HIGH);
-        digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS2_PIN, HIGH);
+        digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS1_PIN, HIGH);
+        digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS2_PIN, HIGH);
     } else {
         if (chip == CHIP_FIST) {
-            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS1_PIN, HIGH);
-            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS2_PIN, LOW);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS1_PIN, HIGH);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS2_PIN, LOW);
         } else {
-            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS1_PIN, LOW);
-            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS2_PIN, HIGH);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS1_PIN, LOW);
+            digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS2_PIN, HIGH);
         }
     }
 }
 
 bool GraphicalLiquidCrystalKs0108::write(Chip chip, unsigned char b, RegisterSelect rs) {
-#if GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CHECK_FOR_BUSY_ON_WRITE == 1
-    unsigned char attempts = GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_DEFAULT_ATTEMPTS_ON_BUSY;
+#if GRAPHICAL_LIQUID_CRYSTAL_KS0108_CHECK_FOR_BUSY_ON_WRITE == 1
+    unsigned char attempts = GRAPHICAL_LIQUID_CRYSTAL_KS0108_DEFAULT_ATTEMPTS_ON_BUSY;
     while (isBusy(chip) && attempts--) {
         if (attempts == 0) {
             setWriteTimeoutFlag();
@@ -144,10 +147,10 @@ bool GraphicalLiquidCrystalKs0108::write(Chip chip, unsigned char b, RegisterSel
     switchReadWriteToWrite();
     switchChipTo(chip);
     setEnablePin();
-    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_DELAY_TDSU_US);
+    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_DELAY_TDSU_US);
     busOutputDirection();
     writeToBus(b);
-    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_DELAY_TDHW_US);
+    delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_DELAY_TDHW_US);
     clearEnablePin();
     disableChips();
     return true;
@@ -185,7 +188,7 @@ unsigned char GraphicalLiquidCrystalKs0108::read(Chip chip, RegisterSelect rs) {
     }
     for (i = 0; i < howManyReads; i++) {
         setEnablePin();
-        delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_DELAY_TD_US);
+        delayMicroseconds(GRAPHICAL_LIQUID_CRYSTAL_KS0108_DELAY_TD_US);
         b = readFromBus();
         clearEnablePin();
     }
@@ -194,51 +197,51 @@ unsigned char GraphicalLiquidCrystalKs0108::read(Chip chip, RegisterSelect rs) {
 }
 
 void GraphicalLiquidCrystalKs0108::switchRegisterSelectToData() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RS_PIN, HIGH);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RS_PIN, HIGH);
 }
 
 void GraphicalLiquidCrystalKs0108::switchRegisterSelectToCommand() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RS_PIN, LOW);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RS_PIN, LOW);
 }
 
 void GraphicalLiquidCrystalKs0108::switchReadWriteToWrite() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RW_PIN, LOW);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RW_PIN, LOW);
 }
 
 void GraphicalLiquidCrystalKs0108::switchReadWriteToRead() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_RW_PIN, HIGH);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_RW_PIN, HIGH);
 }
 
 void GraphicalLiquidCrystalKs0108::writeToBus(unsigned char b) {
-    GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_PORT_NIBBLE_LOW = (GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_PORT_NIBBLE_LOW & 0x0f) | (b & 0xf0);
-    GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_PORT_NIBBLE_HIGH = (GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_PORT_NIBBLE_HIGH & 0xf0) | (b & 0x0f);
+    GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_PORT_NIBBLE_LOW = (GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_PORT_NIBBLE_LOW & 0x0f) | (b & 0xf0);
+    GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_PORT_NIBBLE_HIGH = (GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_PORT_NIBBLE_HIGH & 0xf0) | (b & 0x0f);
 }
 
 unsigned char GraphicalLiquidCrystalKs0108::readFromBus() {
-    return (GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_PIN_NIBBLE_LOW & 0xf0) | (GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_PIN_NIBBLE_HIGH & 0x0f);
+    return (GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_PIN_NIBBLE_LOW & 0xf0) | (GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_PIN_NIBBLE_HIGH & 0x0f);
 }
 
 void GraphicalLiquidCrystalKs0108::busOutputDirection() {
-    GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_DDR_NIBBLE_LOW |= 0xf0;
-    GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_DDR_NIBBLE_HIGH |= 0x0f;
+    GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_DDR_NIBBLE_LOW |= 0xf0;
+    GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_DDR_NIBBLE_HIGH |= 0x0f;
 }
 
 void GraphicalLiquidCrystalKs0108::busInputDirection() {
-    GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_DDR_NIBBLE_LOW &= 0x0f;
-    GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_BUS_DDR_NIBBLE_HIGH &= 0xf0;
+    GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_DDR_NIBBLE_LOW &= 0x0f;
+    GRAPHICAL_LIQUID_CRYSTAL_KS0108_BUS_DDR_NIBBLE_HIGH &= 0xf0;
 }
 
 void GraphicalLiquidCrystalKs0108::setEnablePin() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_EN_PIN, HIGH);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_EN_PIN, HIGH);
 }
 
 void GraphicalLiquidCrystalKs0108::clearEnablePin() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_EN_PIN, LOW);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_EN_PIN, LOW);
 }
 
 void GraphicalLiquidCrystalKs0108::disableChips() {
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS1_PIN, LOW);
-    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_STRAIGHT_CS2_PIN, LOW);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS1_PIN, LOW);
+    digitalWrite(GRAPHICAL_LIQUID_CRYSTAL_KS0108_CS2_PIN, LOW);
 }
 
 bool GraphicalLiquidCrystalKs0108::isReseting(Chip chip) {

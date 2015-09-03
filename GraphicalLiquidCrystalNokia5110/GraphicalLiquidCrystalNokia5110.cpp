@@ -12,7 +12,7 @@
 #include <Arduino.h>
 
 GraphicalLiquidCrystalNokia5110::GraphicalLiquidCrystalNokia5110(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin)
-        : GraphicalLiquidCrystal(0x54, 0x30), dataPin(dataPin), clockPin(clockPin), rstPin(rstPin), dcPin(dcPin) {
+        : GraphicalLiquidCrystal(0x54, 0x30), dataPin(dataPin), clockPin(clockPin), rstPin(rstPin), dcPin(dcPin), currentScroll(0x00) {
 }
 
 void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
@@ -29,7 +29,7 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
 
     // Toggle rstPin to reset
     digitalWrite(rstPin, LOW);
-    delay(1); // how much
+    delay(1000); // how much
     digitalWrite(rstPin, HIGH);
 
     // Issues function set command
@@ -38,8 +38,8 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
     // Issues contrast command
     command(COMMAND_SET_VOP | 0x3f);
 
-    // Issues system bias command
-    command(COMMAND_TEMPERATURE_CONTROL | 0x03);
+    // Issues temperature control
+    command(COMMAND_TEMPERATURE_CONTROL | 0x02);
 
     // Issues system bias command
     command(COMMAND_BIAS_SYSTEM | 0x04);
@@ -60,7 +60,9 @@ void GraphicalLiquidCrystalNokia5110::reset() {
 
 void GraphicalLiquidCrystalNokia5110::sync() {
     command(COMMAND_SET_X_ADDRESS);
-    command(COMMAND_SET_Y_ADDRESS);
+    Serial.print("sync with: ");
+    Serial.println(currentScroll);
+    command(COMMAND_SET_Y_ADDRESS | currentScroll);
     for (int y = 0; y < GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES; y++) {
         for (int x = 0; x < GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH; x++) {
             send(buffer[y][x]);
@@ -85,11 +87,11 @@ void GraphicalLiquidCrystalNokia5110::screen(unsigned char pattern) {
     sync();
 }
 
-unsigned char GraphicalLiquidCrystalNokia5110::getPageFromPoint(unsigned char x, unsigned char y) {
+inline unsigned char GraphicalLiquidCrystalNokia5110::getPageFromPoint(unsigned char x, unsigned char y) {
     return y / 8;
 }
 
-unsigned char GraphicalLiquidCrystalNokia5110::getBitFromPoint(unsigned char x, unsigned char y) {
+inline unsigned char GraphicalLiquidCrystalNokia5110::getBitFromPoint(unsigned char x, unsigned char y) {
     return y % 8;
 }
 
@@ -112,29 +114,37 @@ bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Col
 }
 
 bool GraphicalLiquidCrystalNokia5110::streak(unsigned char x, unsigned char line, unsigned char streak) {
-    command(COMMAND_SET_Y_ADDRESS | line);
+    command(COMMAND_SET_Y_ADDRESS | ((line + currentScroll) % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES));
     command(COMMAND_SET_X_ADDRESS | x);
     send(streak);
     return true;
 }
 
 void GraphicalLiquidCrystalNokia5110::scrollTo(unsigned char line) {
-
+    Serial.println(line);
+    //currentScroll = line % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES;
+    sync();
 }
 
 void GraphicalLiquidCrystalNokia5110::scroll(ScrollDirection direction, unsigned char lines) {
-
+    /*unsigned char line;
+    if (direction == SCROLL_DOWN) {
+        line = currentScroll - lines;
+    } else {
+        line = currentScroll + lines;
+    }*/
+    scrollTo(0);
 }
 
-void GraphicalLiquidCrystalNokia5110::send(unsigned char b) {
+inline void GraphicalLiquidCrystalNokia5110::send(unsigned char b) {
     shiftOut(dataPin, clockPin, MSBFIRST, b);
 }
 
-void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToData() {
+inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToData() {
     digitalWrite(dcPin, HIGH);
 }
 
-void inline GraphicalLiquidCrystalNokia5110::switchRegisterSelectToCommand() {
+inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToCommand() {
     digitalWrite(dcPin, LOW);
 }
 
