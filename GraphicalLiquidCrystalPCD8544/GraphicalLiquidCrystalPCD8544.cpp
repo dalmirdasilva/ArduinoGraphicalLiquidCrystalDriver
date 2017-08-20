@@ -8,14 +8,14 @@
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#include "GraphicalLiquidCrystalNokia5110.h"
 #include <Arduino.h>
+#include "GraphicalLiquidCrystalPCD8544.h"
 
-GraphicalLiquidCrystalNokia5110::GraphicalLiquidCrystalNokia5110(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin)
-        : GraphicalLiquidCrystal(0x54, 0x30), dataPin(dataPin), clockPin(clockPin), rstPin(rstPin), dcPin(dcPin), currentScroll(0x00) {
+GraphicalLiquidCrystalPCD8544::GraphicalLiquidCrystalPCD8544(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin, unsigned char scePin)
+        : GraphicalLiquidCrystal(0x54, 0x30), dataPin(dataPin), clockPin(clockPin), rstPin(rstPin), dcPin(dcPin), scePin(scePin), currentScroll(0x00) {
 }
 
-void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
+void GraphicalLiquidCrystalPCD8544::init(Mode mode) {
 
     // Initial control settings
     currentControl.funtionSet = COMMAND_FUNCTION_SET | COMMAND_FUNCTION_SET_ACTIVE | COMMAND_FUNCTION_SET_EXTENDED_INSTRUCTIONS | COMMAND_FUNCTION_SET_HORIZONTAL_ADDRESSING;
@@ -26,6 +26,7 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
     pinMode(clockPin, OUTPUT);
     pinMode(rstPin, OUTPUT);
     pinMode(dcPin, OUTPUT);
+    pinMode(scePin, OUTPUT);
 
     // Toggle rstPin to reset
     digitalWrite(rstPin, LOW);
@@ -55,47 +56,47 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
     screen(0x00);
 }
 
-void GraphicalLiquidCrystalNokia5110::reset() {
+void GraphicalLiquidCrystalPCD8544::reset() {
 }
 
-void GraphicalLiquidCrystalNokia5110::sync() {
+void GraphicalLiquidCrystalPCD8544::sync() {
     command(COMMAND_SET_X_ADDRESS);
     Serial.print("sync with: ");
     Serial.println(currentScroll);
     command(COMMAND_SET_Y_ADDRESS | currentScroll);
-    for (int y = 0; y < GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES; y++) {
-        for (int x = 0; x < GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH; x++) {
+    for (int y = 0; y < GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT_PAGES; y++) {
+        for (int x = 0; x < GRAPHICAL_LIQUID_CRYSTAL_PCD8544_WIDTH; x++) {
             send(buffer[y][x]);
         }
     }
 }
 
-void GraphicalLiquidCrystalNokia5110::setBias(unsigned char bias) {
+void GraphicalLiquidCrystalPCD8544::setBias(unsigned char bias) {
     bias &= 0x07;
     command(COMMAND_BIAS_SYSTEM | bias);
 }
 
-void GraphicalLiquidCrystalNokia5110::setContrast(unsigned char contrast) {
+void GraphicalLiquidCrystalPCD8544::setContrast(unsigned char contrast) {
     contrast &= 0x7f;
     currentControl.funtionSet |= COMMAND_FUNCTION_SET_EXTENDED_INSTRUCTIONS;
     command(currentControl.funtionSet);
     command(COMMAND_SET_VOP | contrast);
 }
 
-void GraphicalLiquidCrystalNokia5110::screen(unsigned char pattern) {
-    memset(buffer, pattern, GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_BYTE_SIZE);
+void GraphicalLiquidCrystalPCD8544::screen(unsigned char pattern) {
+    memset(buffer, pattern, GRAPHICAL_LIQUID_CRYSTAL_PCD8544_BYTE_SIZE);
     sync();
 }
 
-inline unsigned char GraphicalLiquidCrystalNokia5110::getPageFromPoint(unsigned char x, unsigned char y) {
+inline unsigned char GraphicalLiquidCrystalPCD8544::getPageFromPoint(unsigned char x, unsigned char y) {
     return y / 8;
 }
 
-inline unsigned char GraphicalLiquidCrystalNokia5110::getBitFromPoint(unsigned char x, unsigned char y) {
+inline unsigned char GraphicalLiquidCrystalPCD8544::getBitFromPoint(unsigned char x, unsigned char y) {
     return y % 8;
 }
 
-bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Color color) {
+bool GraphicalLiquidCrystalPCD8544::plot(unsigned char x, unsigned char y, Color color) {
     unsigned char line, bit, b;
     if (isOutOfRange(x, y)) {
         return false;
@@ -109,21 +110,20 @@ bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Col
     return true;
 }
 
-bool GraphicalLiquidCrystalNokia5110::streak(unsigned char x, unsigned char line, unsigned char streak) {
-    command(COMMAND_SET_Y_ADDRESS | ((line + currentScroll) % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES));
+bool GraphicalLiquidCrystalPCD8544::streak(unsigned char x, unsigned char line, unsigned char streak) {
+    command(COMMAND_SET_Y_ADDRESS | ((line + currentScroll) % GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT_PAGES));
     command(COMMAND_SET_X_ADDRESS | x);
     // Should save into internal buffer?
     send(streak);
     return true;
 }
 
-void GraphicalLiquidCrystalNokia5110::scrollTo(unsigned char line) {
-    Serial.println(line);
-    //currentScroll = line % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES;
+void GraphicalLiquidCrystalPCD8544::scrollTo(unsigned char line) {
+    currentScroll = line % GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT_PAGES;
     sync();
 }
 
-void GraphicalLiquidCrystalNokia5110::scroll(ScrollDirection direction, unsigned char lines) {
+void GraphicalLiquidCrystalPCD8544::scroll(ScrollDirection direction, unsigned char lines) {
     /*unsigned char line;
     if (direction == SCROLL_DOWN) {
         line = currentScroll - lines;
@@ -133,19 +133,29 @@ void GraphicalLiquidCrystalNokia5110::scroll(ScrollDirection direction, unsigned
     scrollTo(0);
 }
 
-inline void GraphicalLiquidCrystalNokia5110::send(unsigned char b) {
+inline void GraphicalLiquidCrystalPCD8544::send(unsigned char b) {
+    enableChip();
     shiftOut(dataPin, clockPin, MSBFIRST, b);
+    disableChip();
 }
 
-inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToData() {
+inline void GraphicalLiquidCrystalPCD8544::switchRegisterSelectToData() {
     digitalWrite(dcPin, HIGH);
 }
 
-inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToCommand() {
+inline void GraphicalLiquidCrystalPCD8544::switchRegisterSelectToCommand() {
     digitalWrite(dcPin, LOW);
 }
 
-void GraphicalLiquidCrystalNokia5110::command(unsigned char command) {
+inline void GraphicalLiquidCrystalPCD8544::enableChip() {
+    digitalWrite(scePin, LOW);
+}
+
+inline void GraphicalLiquidCrystalPCD8544::disableChip() {
+    digitalWrite(scePin, HIGH);
+}
+
+void GraphicalLiquidCrystalPCD8544::command(unsigned char command) {
     switchRegisterSelectToCommand();
     send(command);
     switchRegisterSelectToData();

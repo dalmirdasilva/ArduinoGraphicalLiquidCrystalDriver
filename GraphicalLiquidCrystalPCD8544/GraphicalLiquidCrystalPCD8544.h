@@ -8,13 +8,13 @@
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_H__
-#define __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_H__ 1
+#ifndef __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_PCD8544_H__
+#define __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_PCD8544_H__ 1
 
-#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH           0x54
-#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT          0x30
-#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES    GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT / 8
-#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_BYTE_SIZE       GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES * 0x54
+#define GRAPHICAL_LIQUID_CRYSTAL_PCD8544_WIDTH           0x54
+#define GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT          0x30
+#define GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT_PAGES    GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT / 8
+#define GRAPHICAL_LIQUID_CRYSTAL_PCD8544_BYTE_SIZE       GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT_PAGES * 0x54
 
 #include <GraphicalLiquidCrystal.h>
 
@@ -40,7 +40,7 @@
  * enables the serial interface and indicates the start of a data
  * transmission.
  */
-class GraphicalLiquidCrystalNokia5110: public GraphicalLiquidCrystal {
+class GraphicalLiquidCrystalPCD8544: public GraphicalLiquidCrystal {
 
     struct Control {
         unsigned char funtionSet;
@@ -68,6 +68,11 @@ class GraphicalLiquidCrystalNokia5110: public GraphicalLiquidCrystal {
     unsigned char dcPin;
 
     /**
+     * Chip Enable pin.
+     */
+    unsigned char scePin;
+
+    /**
      * Control bytes
      */
     Control currentControl;
@@ -75,7 +80,7 @@ class GraphicalLiquidCrystalNokia5110: public GraphicalLiquidCrystal {
     /**
      * Display buffer
      */
-    unsigned char buffer[GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES][GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH];
+    unsigned char buffer[GRAPHICAL_LIQUID_CRYSTAL_PCD8544_HEIGHT_PAGES][GRAPHICAL_LIQUID_CRYSTAL_PCD8544_WIDTH];
 
 public:
 
@@ -137,7 +142,7 @@ public:
     /**
      * Public constructor.
      */
-    GraphicalLiquidCrystalNokia5110(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin);
+    GraphicalLiquidCrystalPCD8544(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin, unsigned char scePin);
 
     /**
      * Initializes the glcd.
@@ -266,6 +271,16 @@ protected:
      * Switch the register select pin to command mode.
      */
     inline void switchRegisterSelectToCommand();
+
+    /**
+     * The enable pin allows data to be clocked in. The signal is active LOW.
+     */
+    inline void enableChip();
+
+    /**
+     * The enable pin allows data to be clocked in. The signal is active LOW.
+     */
+    inline void disableChip();
 };
 
-#endif /* __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_H__ */
+#endif /* __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_PCD8544_H__ */
