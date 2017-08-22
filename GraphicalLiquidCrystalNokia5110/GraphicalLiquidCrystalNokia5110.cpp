@@ -29,7 +29,7 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
 
     // Toggle rstPin to reset
     digitalWrite(rstPin, LOW);
-    delay(1000); // how much
+    delay(1000); // how much?
     digitalWrite(rstPin, HIGH);
 
     // Issues function set command
@@ -103,11 +103,7 @@ bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Col
     line = getPageFromPoint(x, y);
     bit = getBitFromPoint(x, y);
     b = buffer[line][x];
-    if (color) {
-        bitSet(b, bit);
-    } else {
-        bitClear(b, bit);
-    }
+    bitWrite(b, bit, color);
     buffer[line][x] = b;
     streak(x, line, b);
     return true;
@@ -116,6 +112,7 @@ bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Col
 bool GraphicalLiquidCrystalNokia5110::streak(unsigned char x, unsigned char line, unsigned char streak) {
     command(COMMAND_SET_Y_ADDRESS | ((line + currentScroll) % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES));
     command(COMMAND_SET_X_ADDRESS | x);
+    // Should save into internal buffer?
     send(streak);
     return true;
 }
