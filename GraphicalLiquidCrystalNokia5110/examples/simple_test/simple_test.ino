@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <GraphicalLiquidCrystal.h>
-#include <GraphicalLiquidCrystalPCD8544.h>
+#include <GraphicalLiquidCrystalNokia5110.h>
 
 #define MOSI_PIN            7
 #define CLOCK_PIN           6
@@ -11,9 +11,9 @@
 void setup() {
   Serial.begin(9600);
 
-  GraphicalLiquidCrystalPCD8544 glcd(MOSI_PIN, CLOCK_PIN, RST_PIN, DC_PIN, SCE_PIN);
+  GraphicalLiquidCrystalNokia5110 glcd(MOSI_PIN, CLOCK_PIN, RST_PIN, DC_PIN, SCE_PIN);
 
-  glcd.init(GraphicalLiquidCrystalPCD8544::MODE_ON);
+  glcd.init(GraphicalLiquidCrystalNokia5110::MODE_ON);
   glcd.screen(0x00);
 
   unsigned long started = millis();

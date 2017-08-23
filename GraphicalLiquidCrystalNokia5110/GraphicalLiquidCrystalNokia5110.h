@@ -1,7 +1,7 @@
 /**
  * Arduino Graphical Liquid Crystal Driver
  * 
- * Controller Philp PCD8544 LCD controller
+ * Controller Philp NOKIA_5110 LCD controller
  *
  * GraphicalLiquidCrystal.h
  *
@@ -13,8 +13,8 @@
 
 #define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH           0x54
 #define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT          0x30
-#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES    GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT / 8
-#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_BYTE_SIZE       GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES * 0x54
+#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES    (GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT / 8)
+#define GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_BYTE_SIZE       (GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES * GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH)
 
 #include <GraphicalLiquidCrystal.h>
 
@@ -30,7 +30,7 @@
  * The level of the D/C signal is read during the last bit of data
  * byte.
  *
- * Each instruction can be sent in any order to the PCD8544.
+ * Each instruction can be sent in any order to the NOKIA_5110.
  * The MSB of a byte is transmitted first. Figure 9 shows one
  * possible command stream, used to set up the LCD driver.
  *
@@ -50,7 +50,7 @@ class GraphicalLiquidCrystalNokia5110: public GraphicalLiquidCrystal {
     /**
      * Data pin.
      */
-    unsigned char dataPin;
+    unsigned char mosiPin;
 
     /**
      * Clock pin.
@@ -66,6 +66,31 @@ class GraphicalLiquidCrystalNokia5110: public GraphicalLiquidCrystal {
      * Data/Command pin.
      */
     unsigned char dcPin;
+
+    /**
+     * Chip Enable pin.
+     */
+    unsigned char scePin;
+
+    /**
+     * Port corresponding to mosiPin.
+     */
+    volatile unsigned char *mosiPort;
+
+    /**
+     * Port corresponding to clockPin.
+     */
+    volatile unsigned char *clockPort;
+
+    /**
+     * Mask corresponding to mosiPin.
+     */
+    unsigned char mosiPinMask;
+
+    /**
+     * Mask corresponding to clockPin.
+     */
+    unsigned char clockPinMask;
 
     /**
      * Control bytes
@@ -137,10 +162,10 @@ public:
     /**
      * Public constructor.
      */
-    GraphicalLiquidCrystalNokia5110(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin);
+    GraphicalLiquidCrystalNokia5110(unsigned char mosiPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin, unsigned char scePin);
 
     /**
-     * Initializes the glcd.
+     * Initializes the GLCD.
      *
      * Immediately following power-on, the contents of all internal
      * registers and of the RAM are undefined. A RES pulse
@@ -162,7 +187,7 @@ public:
     void init(Mode mode);
 
     /**
-     * Issues a resert int the glcd module
+     * Issues a reset command to the GLCD module.
      * 
      * @return  void    
      */
@@ -171,7 +196,7 @@ public:
     /**
      * Send all buffer
      */
-    void sync();
+    void flush();
 
     /**
      * System bias.
@@ -243,6 +268,20 @@ public:
     void scroll(ScrollDirection direction, unsigned char lines);
 
     /**
+     * Sugar methods for scroll(SCROLL_UP, lines);
+     *
+     * @param lines         How many lines will scroll up.
+     */
+    inline void scrollUp(unsigned char lines);
+
+    /**
+     * Sugar methods for scroll(SCROLL_DOWN, lines);
+     *
+     * @param lines         How many lines will scroll down.
+     */
+    inline void scrollDown(unsigned char lines);
+
+    /**
      * Send a command to the module.
      */
     void command(unsigned char command);
@@ -258,6 +297,14 @@ protected:
     inline void send(unsigned char b);
 
     /**
+     * Shifts out a byte through the MOSI pin.
+     *
+     * @param b                 The byte to be shifted.
+     * @return
+     */
+    inline void transfer(unsigned char b);
+
+    /**
      * Switch the register select pin to data mode.
      */
     inline void switchRegisterSelectToData();
@@ -266,6 +313,16 @@ protected:
      * Switch the register select pin to command mode.
      */
     inline void switchRegisterSelectToCommand();
+
+    /**
+     * The enable pin allows data to be clocked in. The signal is active LOW.
+     */
+    inline void enableChip();
+
+    /**
+     * The enable pin allows data to be clocked in. The signal is active LOW.
+     */
+    inline void disableChip();
 };
 
 #endif /* __ARDUINO_DRIVER_GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_H__ */

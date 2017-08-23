@@ -9,23 +9,33 @@
  */
 
 #include "GraphicalLiquidCrystalNokia5110.h"
+
 #include <Arduino.h>
 
-GraphicalLiquidCrystalNokia5110::GraphicalLiquidCrystalNokia5110(unsigned char dataPin, unsigned char clockPin, unsigned char rstPin, unsigned char dcPin)
-        : GraphicalLiquidCrystal(0x54, 0x30), dataPin(dataPin), clockPin(clockPin), rstPin(rstPin), dcPin(dcPin), currentScroll(0x00) {
+GraphicalLiquidCrystalNokia5110::GraphicalLiquidCrystalNokia5110(unsigned char mosiPin, unsigned char clockPin,
+        unsigned char rstPin, unsigned char dcPin, unsigned char scePin) :
+        GraphicalLiquidCrystal(0x54, 0x30), mosiPin(mosiPin), clockPin(clockPin), rstPin(rstPin), dcPin(dcPin), scePin(
+                scePin), currentScroll(0x00) {
+
+    mosiPort = portOutputRegister(digitalPinToPort(mosiPin));
+    mosiPinMask = digitalPinToBitMask(mosiPin);
+    clockPort = portOutputRegister(digitalPinToPort(clockPin));
+    clockPinMask = digitalPinToBitMask(clockPin);
 }
 
 void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
 
     // Initial control settings
-    currentControl.funtionSet = COMMAND_FUNCTION_SET | COMMAND_FUNCTION_SET_ACTIVE | COMMAND_FUNCTION_SET_EXTENDED_INSTRUCTIONS | COMMAND_FUNCTION_SET_HORIZONTAL_ADDRESSING;
+    currentControl.funtionSet = COMMAND_FUNCTION_SET | COMMAND_FUNCTION_SET_ACTIVE
+            | COMMAND_FUNCTION_SET_EXTENDED_INSTRUCTIONS | COMMAND_FUNCTION_SET_HORIZONTAL_ADDRESSING;
     currentControl.displayControl = COMMAND_DISPLAY_CONTROL | COMMAND_DISPLAY_CONTROL_NORMAL;
 
     // Pin direction
-    pinMode(dataPin, OUTPUT);
+    pinMode(mosiPin, OUTPUT);
     pinMode(clockPin, OUTPUT);
     pinMode(rstPin, OUTPUT);
     pinMode(dcPin, OUTPUT);
+    pinMode(scePin, OUTPUT);
 
     // Toggle rstPin to reset
     digitalWrite(rstPin, LOW);
@@ -58,11 +68,9 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
 void GraphicalLiquidCrystalNokia5110::reset() {
 }
 
-void GraphicalLiquidCrystalNokia5110::sync() {
+void GraphicalLiquidCrystalNokia5110::flush() {
     command(COMMAND_SET_X_ADDRESS);
-    Serial.print("sync with: ");
-    Serial.println(currentScroll);
-    command(COMMAND_SET_Y_ADDRESS | currentScroll);
+    command(COMMAND_SET_Y_ADDRESS | (currentScroll % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES));
     for (int y = 0; y < GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES; y++) {
         for (int x = 0; x < GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_WIDTH; x++) {
             send(buffer[y][x]);
@@ -84,7 +92,7 @@ void GraphicalLiquidCrystalNokia5110::setContrast(unsigned char contrast) {
 
 void GraphicalLiquidCrystalNokia5110::screen(unsigned char pattern) {
     memset(buffer, pattern, GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_BYTE_SIZE);
-    sync();
+    flush();
 }
 
 inline unsigned char GraphicalLiquidCrystalNokia5110::getPageFromPoint(unsigned char x, unsigned char y) {
@@ -104,7 +112,6 @@ bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Col
     bit = getBitFromPoint(x, y);
     b = buffer[line][x];
     bitWrite(b, bit, color);
-    buffer[line][x] = b;
     streak(x, line, b);
     return true;
 }
@@ -112,29 +119,54 @@ bool GraphicalLiquidCrystalNokia5110::plot(unsigned char x, unsigned char y, Col
 bool GraphicalLiquidCrystalNokia5110::streak(unsigned char x, unsigned char line, unsigned char streak) {
     command(COMMAND_SET_Y_ADDRESS | ((line + currentScroll) % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES));
     command(COMMAND_SET_X_ADDRESS | x);
-    // Should save into internal buffer?
+    buffer[line][x] = streak;
     send(streak);
     return true;
 }
 
 void GraphicalLiquidCrystalNokia5110::scrollTo(unsigned char line) {
-    Serial.println(line);
-    //currentScroll = line % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES;
-    sync();
+    currentScroll = line % GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES;
+    flush();
 }
 
 void GraphicalLiquidCrystalNokia5110::scroll(ScrollDirection direction, unsigned char lines) {
-    /*unsigned char line;
-    if (direction == SCROLL_DOWN) {
-        line = currentScroll - lines;
-    } else {
+    unsigned char line;
+    if (direction == SCROLL_UP) {
         line = currentScroll + lines;
-    }*/
-    scrollTo(0);
+    } else {
+        if (lines <= currentScroll) {
+            line = currentScroll - lines;
+        } else {
+            line = GRAPHICAL_LIQUID_CRYSTAL_NOKIA_5110_HEIGHT_PAGES - (lines - currentScroll);
+        }
+    }
+    scrollTo(line);
+}
+
+void inline GraphicalLiquidCrystalNokia5110::scrollUp(unsigned char lines) {
+    scroll(SCROLL_UP, lines);
+}
+
+void inline GraphicalLiquidCrystalNokia5110::scrollDown(unsigned char lines) {
+    scroll(SCROLL_DOWN, lines);
 }
 
 inline void GraphicalLiquidCrystalNokia5110::send(unsigned char b) {
-    shiftOut(dataPin, clockPin, MSBFIRST, b);
+    enableChip();
+    transfer(b);
+    disableChip();
+}
+
+inline void GraphicalLiquidCrystalNokia5110::transfer(unsigned char b) {
+    for (unsigned char bit = 0x80; bit > 0; bit >>= 1) {
+        *clockPort &= ~clockPinMask;
+        if (b & bit) {
+            *mosiPort |= mosiPinMask;
+        } else {
+            *mosiPort &= ~mosiPinMask;
+        }
+        *clockPort |= clockPinMask;
+    }
 }
 
 inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToData() {
@@ -143,6 +175,14 @@ inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToData() {
 
 inline void GraphicalLiquidCrystalNokia5110::switchRegisterSelectToCommand() {
     digitalWrite(dcPin, LOW);
+}
+
+inline void GraphicalLiquidCrystalNokia5110::enableChip() {
+    digitalWrite(scePin, LOW);
+}
+
+inline void GraphicalLiquidCrystalNokia5110::disableChip() {
+    digitalWrite(scePin, HIGH);
 }
 
 void GraphicalLiquidCrystalNokia5110::command(unsigned char command) {
