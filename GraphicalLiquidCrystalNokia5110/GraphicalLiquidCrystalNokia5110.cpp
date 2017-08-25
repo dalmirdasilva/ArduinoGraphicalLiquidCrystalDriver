@@ -39,7 +39,7 @@ void GraphicalLiquidCrystalNokia5110::init(Mode mode) {
 
     // Toggle rstPin to reset
     digitalWrite(rstPin, LOW);
-    delay(1000); // how much?
+    delay(1); // how much?
     digitalWrite(rstPin, HIGH);
 
     // Issues function set command
@@ -88,6 +88,8 @@ void GraphicalLiquidCrystalNokia5110::setContrast(unsigned char contrast) {
     currentControl.funtionSet |= COMMAND_FUNCTION_SET_EXTENDED_INSTRUCTIONS;
     command(currentControl.funtionSet);
     command(COMMAND_SET_VOP | contrast);
+    currentControl.funtionSet &= ~COMMAND_FUNCTION_SET_EXTENDED_INSTRUCTIONS;
+    command(currentControl.funtionSet);
 }
 
 void GraphicalLiquidCrystalNokia5110::screen(unsigned char pattern) {

@@ -1,69 +1,36 @@
-#include <Wire.h>
-#include <Closeable.h>
-#include <Seekable.h>
-#include <InputStream.h>
-#include <SeekableInputStream.h>
-#include <ExternalEepromInputStream.h> 
-#include <ExternalEepromSeekableInputStream.h>
-#include <ByteArrayInputStream.h>
-#include <ByteArraySeekableInputStream.h>
-#include <ExternalEeprom.h>
-#include <External24cl256Eeprom.h>
-#include <Glcd.h>
-#include <GlcdStraight.h>
-#include <GlcdGraphicState.h>
-#include <GlcdDrawer.h>
-#include <GlcdShapes.h>
-#include <GlcdText.h>
-#include <GlcdBitmapFont.h>
-#include <GlcdBitmapImage.h>
-#include <GlcdBitmapRender.h>
 
-unsigned char img[] = {0x00, 0x08, 0x10,
-0x00, 0x30, 0x30, 0x06, 0x06, 0x30, 0x30, 0x00,
-0xc0, 0x20, 0x10, 0x08, 0x08, 0x20, 0x20, 0xc0};
+#include <Arduino.h>
+#include <ByteArrayInputStream.h>
+#include <GraphicalLiquidCrystal.h>
+#include <GraphicalLiquidCrystalNokia5110.h>
+#include <GraphicalLiquidCrystalDrawer.h>
+#include <GraphicalLiquidCrystalBitmapRender.h>
+#include <GraphicalLiquidCrystalBitmapImage.h>
+
+#define DATA_PIN            7
+#define CLOCK_PIN           6
+#define RST_PIN             3
+#define DC_PIN              5
+#define SCE_PIN             4
+
+unsigned char img[] = { 0x00, 0x08, 0x10, 0x00, 0x30, 0x30, 0x06, 0x06, 0x30, 0x30, 0x00, 0xc0, 0x20, 0x10, 0x08, 0x08,
+        0x20, 0x20, 0xc0 };
 
 void setup() {
-  Serial.begin(9600);
-  uint16_t i, j;
+    Serial.begin(9600);
 
-  Serial.println("Sure? (y/n)");
-  while (!Serial.available());
-  while (Serial.read() != 'y');
+    ByteArrayInputStream is(img, sizeof(img));
 
-  External24cl256Eeprom ee(0x50);
-  ExternalEepromSeekableInputStream eeis(&ee);
-  ByteArraySeekableInputStream basis(img, sizeof(img));	
-    
-  GlcdGraphicState graphicState;
-  GlcdStraight glcdDriver;
-  GlcdDrawer glcdDrawer(&glcdDriver, &graphicState);
-    
-  glcdDriver.init(Glcd::MODE_ON);
-  glcdDriver.screen(0x00);
-  graphicState.setColor(Glcd::COLOR_WHITE);
+    GraphicalLiquidCrystalNokia5110 glcdDriver(DATA_PIN, CLOCK_PIN, RST_PIN, DC_PIN, SCE_PIN);
 
-  GlcdBitmapRender bitmapRender(&glcdDriver);
-  GlcdBitmapImage image(&basis);
-  bitmapRender.drawImageAtRow(&image, 100, 4);
-  bitmapRender.drawImage(&image, 50, 32);
+    glcdDriver.init(GraphicalLiquidCrystal::MODE_ON);
+    glcdDriver.setContrast(0x3a);
+    glcdDriver.screen(0x00);
 
-  GlcdBitmapFont font(&eeis);
-  GlcdText glcdText(&glcdDriver, &font, &graphicState);
-    
-  glcdDrawer.line(10, 10, 20, 10);
-  glcdDrawer.line(20, 10, 30, 20);
-  glcdDrawer.line(30, 20, 20, 20);
-  glcdDrawer.line(20, 20, 10, 10);
-  glcdDrawer.circle(40, 20, 15);
-
-  Rectangle rec(0, 0, 100, 40);
-  glcdText.printString(&rec, (unsigned char*)"All in!", 100, 1);
-  
-  eeis.close();
-  basis.close();
-  Serial.print("Finished at: ");
-  Serial.println(millis());
+    GraphicalLiquidCrystalBitmapRender bitmapRender(&glcdDriver);
+    GraphicalLiquidCrystalBitmapImage image(&is);
+    bitmapRender.drawImageAtRow(&image, 50, 4);
+    bitmapRender.drawImage(&image, 0, 0);
 }
 
 void loop() {
